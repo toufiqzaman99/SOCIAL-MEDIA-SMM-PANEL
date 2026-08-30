@@ -29,7 +29,7 @@ export default function PricingGrid({ platform, monthly = false, onOrder }: Pric
       {flagship.packages.map((pkg, i) => (
         <StaggerItem key={pkg.id} className="h-full">
           <PricingCard
-            name={tierNames[i] ?? pkg.label}
+            name={pkg.label ?? tierNames[i] ?? 'Package'}
             quantity={pkg.quantity}
             price={pkg.price}
             scopeLabel={`${platform.name} Growth`}

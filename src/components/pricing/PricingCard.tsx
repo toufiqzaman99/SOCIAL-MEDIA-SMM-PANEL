@@ -1,7 +1,8 @@
 import { Check } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
-import { formatCurrency, formatNumber, cn } from '@/lib/utils'
+import { useApp } from '@/store/AppContext'
+import { formatNumber, cn } from '@/lib/utils'
 
 export interface PricingCardProps {
   name: string
@@ -27,6 +28,7 @@ export default function PricingCard({
   monthly = false,
   onOrder,
 }: PricingCardProps) {
+  const { format, formatPerUnit } = useApp()
   const displayPrice = monthly ? Math.round(price * 0.8 * 100) / 100 : price
 
   return (
@@ -53,12 +55,12 @@ export default function PricingCard({
 
       <div className="mt-4 flex items-baseline gap-1.5">
         <span className="font-display text-4xl font-bold tracking-tight text-white">
-          {formatCurrency(displayPrice)}
+          {format(displayPrice)}
         </span>
         {monthly ? <span className="text-sm text-slate-400">/mo</span> : null}
       </div>
       <p className="mt-1 text-xs text-slate-500">
-        ≈ {formatCurrency(displayPrice / quantity)} per credit{monthly ? ' · demo billing' : ''}
+        ≈ {formatPerUnit(displayPrice / quantity)} per credit{monthly ? ' · demo billing' : ''}
       </p>
 
       <ul className="mt-6 flex-1 space-y-3 border-t border-white/5 pt-5">

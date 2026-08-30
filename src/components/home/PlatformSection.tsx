@@ -5,10 +5,12 @@ import { PlatformIcon } from '@/components/icons/PlatformIcons'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { StaggerGroup, StaggerItem } from '@/components/ui/Reveal'
 import { platforms } from '@/data/platforms'
-import { formatCurrency, cn } from '@/lib/utils'
+import { useApp } from '@/store/AppContext'
+import { cn } from '@/lib/utils'
 
 export default function PlatformSection() {
   const navigate = useNavigate()
+  const { format } = useApp()
 
   return (
     <section className="relative py-20 sm:py-24">
@@ -45,7 +47,7 @@ export default function PlatformSection() {
 
                   <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4">
                     <p className="text-sm text-slate-400">
-                      From <span className="font-semibold text-white">{formatCurrency(platform.startingAt)}</span>
+                      From <span className="font-semibold text-white">{format(platform.startingAt)}</span>
                     </p>
                     <button
                       onClick={() => navigate(`/services?platform=${platform.id}`)}

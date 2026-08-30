@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react'
 import { EmptyState, Skeleton } from '@/components/ui/States'
 import { useApp } from '@/store/AppContext'
 import { useDemoLoading } from '@/lib/hooks'
-import { formatCurrency, formatRelative, cn } from '@/lib/utils'
+import { formatRelative, cn } from '@/lib/utils'
 import type { TransactionType } from '@/types'
 
 const meta: Record<TransactionType, { label: string; icon: LucideIcon; credit: boolean; classes: string }> = {
@@ -15,7 +15,7 @@ const meta: Record<TransactionType, { label: string; icon: LucideIcon; credit: b
 }
 
 export default function TransactionsPage() {
-  const { state } = useApp()
+  const { state, format } = useApp()
   const loading = useDemoLoading(450)
 
   if (loading) {
@@ -72,7 +72,7 @@ export default function TransactionsPage() {
                 )}
               >
                 {m.credit ? '+' : '−'}
-                {formatCurrency(Math.abs(t.amount))}
+                {format(Math.abs(t.amount))}
               </span>
             </div>
           )

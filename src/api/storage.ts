@@ -6,7 +6,8 @@ import { uid } from '@/lib/utils'
  * data would live on a server behind the other api modules.
  */
 
-const STORAGE_KEY = 'boostly:state:v1'
+// v2: prices moved to HKD base + multi-currency support (fresh seed on first visit).
+const STORAGE_KEY = 'boostly:state:v2'
 
 function daysAgo(days: number, hours = 0): string {
   return new Date(Date.now() - (days * 24 + hours) * 3_600_000).toISOString()
@@ -23,7 +24,7 @@ function seedDemoData(): AppData {
       serviceName: 'Instagram Followers',
       packageId: 'instagram-followers-p1',
       quantity: 1000,
-      price: 9.99,
+      price: 55,
       link: 'instagram.com/demo.creator',
       email: 'demo@boostly.com',
       paymentMethod: 'card',
@@ -39,7 +40,7 @@ function seedDemoData(): AppData {
       serviceName: 'TikTok Likes',
       packageId: 'tiktok-likes-p2',
       quantity: 2500,
-      price: 11.99,
+      price: 94,
       link: 'tiktok.com/@demo.creator',
       email: 'demo@boostly.com',
       paymentMethod: 'paypal',
@@ -55,7 +56,7 @@ function seedDemoData(): AppData {
       serviceName: 'YouTube Views',
       packageId: 'youtube-views-p2',
       quantity: 10000,
-      price: 34.99,
+      price: 275,
       link: 'youtube.com/@demochannel',
       email: 'demo@boostly.com',
       paymentMethod: 'crypto',
@@ -71,7 +72,7 @@ function seedDemoData(): AppData {
       serviceName: 'Telegram Channel Members',
       packageId: 'telegram-members-p2',
       quantity: 1000,
-      price: 9.99,
+      price: 78,
       link: 't.me/demochannel',
       email: 'demo@boostly.com',
       paymentMethod: 'card',
@@ -82,12 +83,12 @@ function seedDemoData(): AppData {
   ]
 
   const transactions: Transaction[] = [
-    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 50, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(40) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -9.99, description: `${orders[0].id} · Instagram Followers × 1,000`, status: 'completed', createdAt: daysAgo(12) },
-    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 25, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(9) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -34.99, description: `${orders[2].id} · YouTube Views × 10,000`, status: 'completed', createdAt: daysAgo(3) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -11.99, description: `${orders[1].id} · TikTok Likes × 2,500`, status: 'completed', createdAt: daysAgo(1) },
-    { id: uid('TXN'), userId: 'demo', type: 'bonus', amount: 5, description: 'Welcome bonus', status: 'completed', createdAt: daysAgo(45) },
+    { id: uid('TXN'), userId: 'demo', type: 'bonus', amount: 50, description: 'Welcome bonus', status: 'completed', createdAt: daysAgo(45) },
+    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 500, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(40) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -55, description: `${orders[0].id} · Instagram Followers × 1,000`, status: 'completed', createdAt: daysAgo(12) },
+    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 200, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(9) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -275, description: `${orders[2].id} · YouTube Views × 10,000`, status: 'completed', createdAt: daysAgo(3) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -94, description: `${orders[1].id} · TikTok Likes × 2,500`, status: 'completed', createdAt: daysAgo(1) },
   ]
 
   const tickets: Ticket[] = [
@@ -104,7 +105,7 @@ function seedDemoData(): AppData {
 
   const balance = transactions.reduce((sum, t) => sum + t.amount, 0)
 
-  return { user: null, orders, transactions, tickets, balance }
+  return { user: null, orders, transactions, tickets, balance, currency: 'HKD' }
 }
 
 export function loadAppData(): AppData {
@@ -112,7 +113,9 @@ export function loadAppData(): AppData {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
       const parsed = JSON.parse(raw) as AppData
-      if (parsed && Array.isArray(parsed.orders)) return parsed
+      if (parsed && Array.isArray(parsed.orders)) {
+        return { ...parsed, currency: parsed.currency ?? 'HKD' }
+      }
     }
   } catch {
     // Corrupted or unavailable storage — fall back to a fresh seed.

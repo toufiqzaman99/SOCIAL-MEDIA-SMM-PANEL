@@ -22,7 +22,7 @@ import { platforms } from '@/data/platforms'
 import { servicesForPlatform } from '@/data/services'
 import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
-import { cn, formatCurrency, formatNumber, isValidEmail, isValidUrlLike } from '@/lib/utils'
+import { cn, formatNumber, isValidEmail, isValidUrlLike } from '@/lib/utils'
 import type { CheckoutPreset, CreateOrderInput, Order, PaymentMethod, PlatformId } from '@/types'
 
 type Step = 1 | 2 | 3
@@ -53,7 +53,7 @@ export interface OrderFormProps {
  * is stated clearly in the payment step and the confirmation screen.
  */
 export default function OrderForm({ preset, variant = 'modal', onClose }: OrderFormProps) {
-  const { state, placeOrder } = useApp()
+  const { state, placeOrder, format } = useApp()
   const { push } = useToast()
   const navigate = useNavigate()
 
@@ -207,7 +207,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
           </div>
           <div className="flex justify-between border-t border-white/5 py-1 pt-2">
             <span className="text-slate-400">Total (demo)</span>
-            <span className="font-semibold text-white">{formatCurrency(placedOrder.price)}</span>
+            <span className="font-semibold text-white">{format(placedOrder.price)}</span>
           </div>
         </div>
         <div className="mt-7 flex w-full flex-col gap-3 sm:flex-row">
@@ -276,7 +276,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
         </div>
         <div className="flex justify-between gap-4">
           <span className="text-slate-400">Price</span>
-          <span className="font-medium text-white">{pkg ? formatCurrency(pkg.price) : '—'}</span>
+          <span className="font-medium text-white">{pkg ? format(pkg.price) : '—'}</span>
         </div>
         <div className="flex justify-between gap-4">
           <span className="text-slate-400">Delivery</span>
@@ -286,9 +286,17 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
       <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
         <span className="text-sm font-semibold text-white">Total</span>
         <span className="font-display text-xl font-bold text-white">
-          {pkg ? formatCurrency(pkg.price) : '—'}
+          {pkg ? format(pkg.price) : '—'}
         </span>
       </div>
+      <div className="mt-3 flex items-center justify-between gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5">
+        <span className="text-xs text-slate-400">Wallet balance (demo)</span>
+        <span className="text-xs font-semibold text-white">{format(state.balance)}</span>
+      </div>
+      <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+        Your wallet balance is used automatically when you place the order.{' '}
+        <span className="text-violet-300">Need funds? Top up first.</span>
+      </p>
       <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
         Marketing/growth service — results may vary and are not guaranteed. No hidden fees.
       </p>
@@ -368,7 +376,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                             ) : null}
                             <p className="text-sm font-semibold text-white">{formatNumber(p.quantity)}</p>
                             <p className="mt-0.5 font-display text-lg font-bold text-white">
-                              {formatCurrency(p.price)}
+                              {format(p.price)}
                             </p>
                             <p className="mt-1 text-[11px] text-slate-500">{p.deliveryEstimate}</p>
                           </button>

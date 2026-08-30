@@ -7,7 +7,6 @@ import Counter from '@/components/ui/Counter'
 import { Skeleton } from '@/components/ui/States'
 import { useApp } from '@/store/AppContext'
 import { useDemoLoading } from '@/lib/hooks'
-import { formatCurrency } from '@/lib/utils'
 
 const quickActions = [
   { label: 'Place a new order', to: '/dashboard/new', icon: PlusCircle, text: 'Browse services and check out in minutes.' },
@@ -16,7 +15,7 @@ const quickActions = [
 ]
 
 export default function DashboardHome() {
-  const { state } = useApp()
+  const { state, format } = useApp()
   const loading = useDemoLoading(700)
 
   const active = state.orders.filter((o) => o.status === 'pending' || o.status === 'processing').length
@@ -65,7 +64,7 @@ export default function DashboardHome() {
         />
         <StatCard
           label="Account Balance"
-          value={loading ? null : <span className="text-3xl">{formatCurrency(state.balance)}</span>}
+          value={loading ? null : <span className="text-3xl">{format(state.balance)}</span>}
           icon={Wallet}
           hint="Demo wallet — no real funds"
           loading={loading}

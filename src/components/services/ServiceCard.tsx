@@ -2,8 +2,9 @@ import { ArrowRight } from 'lucide-react'
 
 import { ServiceIcon } from '@/components/icons/ServiceIcons'
 import { platformById } from '@/data/platforms'
+import { useApp } from '@/store/AppContext'
 import type { Service } from '@/types'
-import { cn, formatCurrency } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 export interface ServiceCardProps {
   service: Service
@@ -11,6 +12,7 @@ export interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, onOrder }: ServiceCardProps) {
+  const { format } = useApp()
   const platform = platformById(service.platform)
   const startingPrice = Math.min(...service.packages.map((p) => p.price))
 
@@ -49,7 +51,7 @@ export default function ServiceCard({ service, onOrder }: ServiceCardProps) {
         <div className="mt-5 flex items-center justify-between border-t border-white/5 pt-4">
           <div>
             <p className="text-xs text-slate-500">From</p>
-            <p className="font-display text-lg font-bold text-white">{formatCurrency(startingPrice)}</p>
+            <p className="font-display text-lg font-bold text-white">{format(startingPrice)}</p>
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-xl border border-violet-400/30 bg-violet-400/10 px-3.5 py-2 text-sm font-semibold text-violet-300 transition group-hover:bg-violet-400/20 group-hover:text-violet-200">
             Order Now

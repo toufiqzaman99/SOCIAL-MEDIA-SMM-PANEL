@@ -14,6 +14,7 @@ const companyLinks = [
 const serviceLinks = [
   { label: 'Services', to: '/services' },
   { label: 'Pricing', to: '/pricing' },
+  { label: 'Top Up', to: '/topup' },
   { label: 'Instagram Growth', to: '/services?platform=instagram' },
   { label: 'TikTok Growth', to: '/services?platform=tiktok' },
   { label: 'YouTube Growth', to: '/services?platform=youtube' },

@@ -16,10 +16,12 @@ import { createTicket as apiCreateTicket } from '@/api/support'
 import { updateProfile as apiUpdateProfile } from '@/api/users'
 import { addFunds as apiAddFunds } from '@/api/wallet'
 import { loadAppData, saveAppData } from '@/api/storage'
+import { formatPrice, formatPricePerUnit } from '@/lib/currency'
 import { formatNumber, uid } from '@/lib/utils'
 import type {
   AppData,
   CreateOrderInput,
+  CurrencyCode,
   Order,
   ServiceStatus,
   Ticket,
@@ -41,6 +43,7 @@ type Action =
   | { type: 'TICKET_ADD'; ticket: Ticket }
   | { type: 'TRANSACTION_ADD'; transaction: Transaction; balance: number }
   | { type: 'PROFILE_UPDATE'; patch: { name?: string; email?: string } }
+  | { type: 'CURRENCY_SET'; code: CurrencyCode }
 
 function reducer(state: AppData, action: Action): AppData {
   switch (action.type) {
@@ -71,17 +74,25 @@ function reducer(state: AppData, action: Action): AppData {
       return { ...state, transactions: [action.transaction, ...state.transactions], balance: action.balance }
     case 'PROFILE_UPDATE':
       return { ...state, user: state.user ? { ...state.user, ...action.patch } : state.user }
+    case 'CURRENCY_SET':
+      return { ...state, currency: action.code }
   }
 }
 
 export interface AppContextValue {
   state: AppData
+  currency: CurrencyCode
+  setCurrency(code: CurrencyCode): void
+  /** Format an HKD-base price in the active currency, e.g. "HK$55". */
+  format(priceHkd: number): string
+  /** Per-unit ("per credit") formatting with extra precision. */
+  formatPerUnit(priceHkd: number): string
   login(email: string, password: string): Promise<User>
   register(name: string, email: string, password: string): Promise<User>
   logout(): Promise<void>
   placeOrder(input: CreateOrderInput): Promise<Order>
   cancelOrder(orderId: string): Promise<void>
-  addFunds(amount: number): Promise<void>
+  addFunds(amount: number, bonus?: number): Promise<void>
   createTicket(input: { subject: string; category: string; message: string }): Promise<Ticket>
   updateProfile(patch: { name?: string; email?: string }): Promise<void>
 }
@@ -157,18 +168,33 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'ORDER_STATUS', orderId, status: 'cancelled' })
   }, [])
 
-  const addFunds = useCallback(async (amount: number) => {
+  const addFunds = useCallback(async (amount: number, bonus = 0) => {
     await apiAddFunds(amount)
+    const userId = stateRef.current.user?.id ?? 'guest'
+    const now = new Date().toISOString()
     const transaction: Transaction = {
       id: uid('TXN'),
-      userId: stateRef.current.user?.id ?? 'guest',
+      userId,
       type: 'deposit',
       amount,
       description: 'Wallet top-up (demo)',
       status: 'completed',
-      createdAt: new Date().toISOString(),
+      createdAt: now,
     }
-    dispatch({ type: 'TRANSACTION_ADD', transaction, balance: stateRef.current.balance + amount })
+    const balance = stateRef.current.balance + amount
+    dispatch({ type: 'TRANSACTION_ADD', transaction, balance })
+    if (bonus > 0) {
+      const bonusTransaction: Transaction = {
+        id: uid('TXN'),
+        userId,
+        type: 'bonus',
+        amount: bonus,
+        description: 'Top-up bonus (demo)',
+        status: 'completed',
+        createdAt: now,
+      }
+      dispatch({ type: 'TRANSACTION_ADD', transaction: bonusTransaction, balance: balance + bonus })
+    }
   }, [])
 
   const createTicket = useCallback(
@@ -186,9 +212,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'PROFILE_UPDATE', patch: { name: updated.name, email: updated.email } })
   }, [])
 
+  const setCurrency = useCallback((code: CurrencyCode) => {
+    dispatch({ type: 'CURRENCY_SET', code })
+  }, [])
+
+  const format = useCallback(
+    (priceHkd: number) => formatPrice(priceHkd, state.currency),
+    [state.currency],
+  )
+
+  const formatPerUnit = useCallback(
+    (priceHkd: number) => formatPricePerUnit(priceHkd, state.currency),
+    [state.currency],
+  )
+
   const value = useMemo<AppContextValue>(
     () => ({
       state,
+      currency: state.currency,
+      setCurrency,
+      format,
+      formatPerUnit,
       login,
       register,
       logout,
@@ -198,7 +242,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
       createTicket,
       updateProfile,
     }),
-    [state, login, register, logout, placeOrder, cancelOrder, addFunds, createTicket, updateProfile],
+    [
+      state,
+      setCurrency,
+      format,
+      formatPerUnit,
+      login,
+      register,
+      logout,
+      placeOrder,
+      cancelOrder,
+      addFunds,
+      createTicket,
+      updateProfile,
+    ],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

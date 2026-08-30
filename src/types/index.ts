@@ -12,6 +12,9 @@ export type PaymentMethod = 'card' | 'paypal' | 'crypto'
 
 export type TransactionType = 'payment' | 'deposit' | 'refund' | 'bonus'
 
+/** Display currencies — all prices are stored in HKD and converted for display. */
+export type CurrencyCode = 'CNY' | 'HKD' | 'USD' | 'KRW'
+
 export interface Platform {
   id: PlatformId
   name: string
@@ -136,4 +139,5 @@ export interface AppData {
   transactions: Transaction[]
   tickets: Ticket[]
   balance: number
+  currency: CurrencyCode
 }

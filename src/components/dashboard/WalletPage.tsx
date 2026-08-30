@@ -6,12 +6,12 @@ import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
 import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
-import { formatCurrency, formatRelative, cn } from '@/lib/utils'
+import { formatRelative, cn } from '@/lib/utils'
 
 const chips = [10, 25, 50, 100]
 
 export default function WalletPage() {
-  const { state, addFunds } = useApp()
+  const { state, addFunds, format } = useApp()
   const { push } = useToast()
   const [open, setOpen] = useState(false)
   const [amount, setAmount] = useState<number>(25)
@@ -25,7 +25,7 @@ export default function WalletPage() {
       setOpen(false)
       push({
         title: 'Funds added (demo)',
-        description: `$${amount.toFixed(2)} added to your demo wallet — no real money involved.`,
+        description: `${format(amount)} added to your demo wallet — no real money involved.`,
         type: 'success',
       })
     } finally {
@@ -45,7 +45,7 @@ export default function WalletPage() {
               <Wallet className="h-4 w-4" /> Available balance
             </p>
             <p className="mt-2 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              {formatCurrency(state.balance)}
+              {format(state.balance)}
             </p>
             <p className="mt-2 text-xs text-white/70">Demo wallet — funds are simulated and cannot be withdrawn.</p>
           </div>
@@ -83,7 +83,7 @@ export default function WalletPage() {
                 </div>
                 <span className={cn('text-sm font-semibold', credit ? 'text-emerald-300' : 'text-white')}>
                   {credit ? '+' : ''}
-                  {formatCurrency(t.amount)}
+                  {format(t.amount)}
                 </span>
               </div>
             )
@@ -118,14 +118,14 @@ export default function WalletPage() {
                     : 'border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/25',
                 )}
               >
-                ${chip}
+                {format(chip)}
               </button>
             ))}
           </div>
 
           <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
             <span className="text-sm text-slate-400">Amount</span>
-            <span className="font-display text-xl font-bold text-white">{formatCurrency(amount)}</span>
+            <span className="font-display text-xl font-bold text-white">{format(amount)}</span>
           </div>
 
           <Button fullWidth size="lg" loading={adding} onClick={handleAddFunds}>

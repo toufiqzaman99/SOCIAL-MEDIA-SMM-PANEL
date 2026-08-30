@@ -19,7 +19,7 @@ import Avatar from '@/components/ui/Avatar'
 import Logo from '@/components/ui/Logo'
 import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
-import { cn, formatCurrency } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 interface NavItem {
   label: string
@@ -113,7 +113,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export default function DashboardLayout() {
-  const { state } = useApp()
+  const { state, format } = useApp()
   const { push } = useToast()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -142,7 +142,7 @@ export default function DashboardLayout() {
         <div className="flex items-center gap-2">
           <span className="hidden items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm font-semibold text-white sm:flex">
             <Wallet className="h-4 w-4 text-violet-300" />
-            {formatCurrency(state.balance)}
+            {format(state.balance)}
           </span>
           <button
             onClick={() =>

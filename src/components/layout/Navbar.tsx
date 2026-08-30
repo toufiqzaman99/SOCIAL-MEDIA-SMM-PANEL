@@ -5,6 +5,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import Avatar from '@/components/ui/Avatar'
 import { buttonClasses } from '@/components/ui/Button'
+import CurrencySwitcher from '@/components/ui/CurrencySwitcher'
 import Logo from '@/components/ui/Logo'
 import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
@@ -16,6 +17,7 @@ const links = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
   { label: 'Pricing', to: '/pricing' },
+  { label: 'Top Up', to: '/topup' },
   { label: 'How It Works', to: '/how-it-works' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Contact', to: '/contact' },
@@ -95,6 +97,7 @@ export default function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 md:flex">
+          <CurrencySwitcher />
           {state.user ? (
             <>
               <Link to="/dashboard" className={buttonClasses('primary', 'sm')}>
@@ -186,6 +189,10 @@ export default function Navbar() {
               </nav>
 
               <div className="flex flex-col gap-2.5 border-t border-white/5 p-4">
+                <div>
+                  <p className="mb-2 text-xs font-medium uppercase tracking-widest text-slate-500">Currency</p>
+                  <CurrencySwitcher variant="row" />
+                </div>
                 {state.user ? (
                   <>
                     <Link to="/dashboard" className={buttonClasses('primary', 'md', 'w-full')}>

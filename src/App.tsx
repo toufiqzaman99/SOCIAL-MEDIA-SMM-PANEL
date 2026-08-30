@@ -16,6 +16,7 @@ import { ToastProvider } from '@/store/ToastContext'
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const ServicesPage = lazy(() => import('@/pages/ServicesPage'))
 const PricingPage = lazy(() => import('@/pages/PricingPage'))
+const TopUpPage = lazy(() => import('@/pages/TopUpPage'))
 const HowItWorksPage = lazy(() => import('@/pages/HowItWorksPage'))
 const FaqPage = lazy(() => import('@/pages/FaqPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
@@ -60,6 +61,7 @@ export default function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/pricing" element={<PricingPage />} />
+                    <Route path="/topup" element={<TopUpPage />} />
                     <Route path="/how-it-works" element={<HowItWorksPage />} />
                     <Route path="/faq" element={<FaqPage />} />
                     <Route path="/contact" element={<ContactPage />} />

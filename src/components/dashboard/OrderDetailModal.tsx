@@ -5,9 +5,10 @@ import { motion } from 'framer-motion'
 import Modal from '@/components/ui/Modal'
 import StatusBadge from '@/components/ui/StatusBadge'
 import { platformById } from '@/data/platforms'
+import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
 import type { Order } from '@/types'
-import { cn, formatCurrency, formatDate, formatNumber } from '@/lib/utils'
+import { cn, formatDate, formatNumber } from '@/lib/utils'
 
 const methodLabels: Record<Order['paymentMethod'], string> = {
   card: 'Credit / Debit Card',
@@ -47,6 +48,7 @@ export interface OrderDetailModalProps {
 }
 
 export default function OrderDetailModal({ order, onClose, onCancel }: OrderDetailModalProps) {
+  const { format } = useApp()
   const { push } = useToast()
 
   if (!order) return null
@@ -68,7 +70,7 @@ export default function OrderDetailModal({ order, onClose, onCancel }: OrderDeta
       <div className="space-y-5">
         <div className="flex items-center justify-between gap-4">
           <StatusBadge status={order.status} />
-          <span className="font-display text-xl font-bold text-white">{formatCurrency(order.price)}</span>
+          <span className="font-display text-xl font-bold text-white">{format(order.price)}</span>
         </div>
 
         {/* Progress timeline */}

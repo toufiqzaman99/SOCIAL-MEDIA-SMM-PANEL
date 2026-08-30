@@ -11,7 +11,8 @@ function makeService(seed: ServiceSeed, packages: PackageSeed[]): Service {
 }
 
 /**
- * Service catalog.
+ * Service catalog. All prices are stored in HKD (the base currency of the
+ * price list) and displayed in the user's chosen currency.
  *
  * All items are marketing / growth services: campaigns are delivered
  * gradually, estimates are shown at checkout, and results are never
@@ -20,6 +21,7 @@ function makeService(seed: ServiceSeed, packages: PackageSeed[]): Service {
  */
 export const services: Service[] = [
   // ─── INSTAGRAM ──────────────────────────────────────────────────────
+  // Followers / Likes / Views tiers match the official price list.
   makeService(
     {
       id: 'instagram-followers',
@@ -32,10 +34,13 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 1000, price: 9.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 5000, price: 34.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Pro', quantity: 10000, price: 59.99, deliveryEstimate: 'Begins within 6 hours', bestValue: true },
-      { label: 'Max', quantity: 50000, price: 199.99, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Starter', quantity: 1000, price: 55, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Plus', quantity: 3000, price: 150, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 5000, price: 200, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 10000, price: 350, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Premium', quantity: 20000, price: 600, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 50000, price: 1500, deliveryEstimate: 'Priority — begins within 1 hour' },
+      { label: 'Ultra', quantity: 100000, price: 2900, deliveryEstimate: 'Priority — begins within 1 hour' },
     ],
   ),
   makeService(
@@ -49,9 +54,11 @@ export const services: Service[] = [
       popular: true,
     },
     [
-      { label: 'Starter', quantity: 500, price: 3.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 2500, price: 14.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 10000, price: 44.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 5, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 5000, price: 25, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 10000, price: 50, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 50000, price: 150, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Ultra', quantity: 100000, price: 300, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -64,9 +71,11 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 2.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 19.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 69.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 15, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 5000, price: 45, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 10000, price: 80, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 50000, price: 350, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Ultra', quantity: 100000, price: 600, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -79,9 +88,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–24 hours',
     },
     [
-      { label: 'Starter', quantity: 50, price: 4.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 250, price: 19.99, deliveryEstimate: 'Begins within 18 hours' },
-      { label: 'Pro', quantity: 1000, price: 64.99, deliveryEstimate: 'Begins within 12 hours', bestValue: true },
+      { label: 'Starter', quantity: 50, price: 39, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 250, price: 157, deliveryEstimate: 'Begins within 18 hours' },
+      { label: 'Pro', quantity: 1000, price: 510, deliveryEstimate: 'Begins within 12 hours' },
     ],
   ),
   makeService(
@@ -94,9 +103,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 2.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 17.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 59.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 23, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 141, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 471, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -110,9 +119,9 @@ export const services: Service[] = [
       popular: true,
     },
     [
-      { label: 'Starter', quantity: 1000, price: 3.49, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 22.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 79.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 27, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 180, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 628, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -125,9 +134,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 5.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 5000, price: 24.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 20000, price: 79.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 47, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 5000, price: 196, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 20000, price: 628, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
 
@@ -144,10 +153,10 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 500, price: 4.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 2500, price: 19.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Pro', quantity: 10000, price: 54.99, deliveryEstimate: 'Begins within 6 hours', bestValue: true },
-      { label: 'Max', quantity: 50000, price: 179.99, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Starter', quantity: 500, price: 39, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 2500, price: 157, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 10000, price: 432, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 50000, price: 1413, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -161,9 +170,9 @@ export const services: Service[] = [
       popular: true,
     },
     [
-      { label: 'Starter', quantity: 500, price: 2.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 2500, price: 11.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 10000, price: 34.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 500, price: 23, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 2500, price: 94, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 10000, price: 275, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -176,9 +185,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 1.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 12.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 100000, price: 79.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 16, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 102, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 100000, price: 628, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -191,9 +200,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–24 hours',
     },
     [
-      { label: 'Starter', quantity: 100, price: 3.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 500, price: 14.99, deliveryEstimate: 'Begins within 18 hours' },
-      { label: 'Pro', quantity: 2500, price: 54.99, deliveryEstimate: 'Begins within 12 hours', bestValue: true },
+      { label: 'Starter', quantity: 100, price: 31, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 500, price: 118, deliveryEstimate: 'Begins within 18 hours' },
+      { label: 'Pro', quantity: 2500, price: 432, deliveryEstimate: 'Begins within 12 hours' },
     ],
   ),
   makeService(
@@ -206,9 +215,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 4.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 5000, price: 19.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 25000, price: 69.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 39, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 5000, price: 157, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 25000, price: 549, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
 
@@ -225,10 +234,10 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 100, price: 9.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 500, price: 34.99, deliveryEstimate: 'Begins within 18 hours' },
-      { label: 'Pro', quantity: 2000, price: 119.99, deliveryEstimate: 'Begins within 12 hours', bestValue: true },
-      { label: 'Max', quantity: 10000, price: 449.99, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Starter', quantity: 100, price: 78, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 500, price: 275, deliveryEstimate: 'Begins within 18 hours' },
+      { label: 'Pro', quantity: 2000, price: 942, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Max', quantity: 10000, price: 3532, deliveryEstimate: 'Begins within 6 hours' },
     ],
   ),
   makeService(
@@ -242,9 +251,9 @@ export const services: Service[] = [
       popular: true,
     },
     [
-      { label: 'Starter', quantity: 1000, price: 4.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 34.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 129.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 39, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 275, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 1020, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -257,9 +266,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 250, price: 5.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 1000, price: 19.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 5000, price: 74.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 250, price: 47, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 1000, price: 157, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 5000, price: 589, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -272,9 +281,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–24 hours',
     },
     [
-      { label: 'Starter', quantity: 50, price: 9.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 250, price: 39.99, deliveryEstimate: 'Begins within 18 hours' },
-      { label: 'Pro', quantity: 1000, price: 129.99, deliveryEstimate: 'Begins within 12 hours', bestValue: true },
+      { label: 'Starter', quantity: 50, price: 78, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 250, price: 314, deliveryEstimate: 'Begins within 18 hours' },
+      { label: 'Pro', quantity: 1000, price: 1020, deliveryEstimate: 'Begins within 12 hours' },
     ],
   ),
 
@@ -291,10 +300,10 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 250, price: 4.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 1000, price: 14.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Pro', quantity: 5000, price: 49.99, deliveryEstimate: 'Begins within 6 hours', bestValue: true },
-      { label: 'Max', quantity: 25000, price: 189.99, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Starter', quantity: 250, price: 39, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 1000, price: 118, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 5000, price: 392, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 25000, price: 1491, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -307,9 +316,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 250, price: 3.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 1000, price: 12.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 5000, price: 44.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 250, price: 31, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 1000, price: 102, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 5000, price: 353, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -322,9 +331,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 2.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 17.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 64.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 23, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 141, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 510, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -337,9 +346,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 5.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 5000, price: 22.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 20000, price: 69.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 47, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 5000, price: 180, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 20000, price: 549, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
 
@@ -356,10 +365,10 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 500, price: 3.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 2500, price: 14.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Pro', quantity: 10000, price: 44.99, deliveryEstimate: 'Begins within 6 hours', bestValue: true },
-      { label: 'Max', quantity: 50000, price: 149.99, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Starter', quantity: 500, price: 31, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 2500, price: 118, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 10000, price: 353, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 50000, price: 1177, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -372,9 +381,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 250, price: 2.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 1000, price: 9.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 5000, price: 34.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 250, price: 23, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 1000, price: 78, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 5000, price: 275, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -387,9 +396,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 2.49, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 16.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 59.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 20, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 133, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 471, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -402,9 +411,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 4.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 5000, price: 19.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 20000, price: 59.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 39, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 5000, price: 157, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 20000, price: 471, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
 
@@ -421,10 +430,10 @@ export const services: Service[] = [
       flagship: true,
     },
     [
-      { label: 'Starter', quantity: 250, price: 2.99, deliveryEstimate: 'Begins within 24 hours' },
-      { label: 'Growth', quantity: 1000, price: 9.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Pro', quantity: 5000, price: 34.99, deliveryEstimate: 'Begins within 6 hours', bestValue: true },
-      { label: 'Max', quantity: 25000, price: 129.99, deliveryEstimate: 'Begins within 2 hours' },
+      { label: 'Starter', quantity: 250, price: 23, deliveryEstimate: 'Begins within 24 hours' },
+      { label: 'Growth', quantity: 1000, price: 78, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Pro', quantity: 5000, price: 275, deliveryEstimate: 'Begins within 6 hours' },
+      { label: 'Max', quantity: 25000, price: 1020, deliveryEstimate: 'Begins within 2 hours' },
     ],
   ),
   makeService(
@@ -437,9 +446,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 1000, price: 1.99, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 10000, price: 12.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 50000, price: 44.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 1000, price: 16, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 10000, price: 102, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 50000, price: 353, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
   makeService(
@@ -452,9 +461,9 @@ export const services: Service[] = [
       deliveryEstimate: 'Begins within 1–12 hours',
     },
     [
-      { label: 'Starter', quantity: 250, price: 2.49, deliveryEstimate: 'Begins within 12 hours' },
-      { label: 'Growth', quantity: 1000, price: 7.99, deliveryEstimate: 'Begins within 8 hours' },
-      { label: 'Pro', quantity: 5000, price: 29.99, deliveryEstimate: 'Begins within 4 hours', bestValue: true },
+      { label: 'Starter', quantity: 250, price: 20, deliveryEstimate: 'Begins within 12 hours' },
+      { label: 'Growth', quantity: 1000, price: 63, deliveryEstimate: 'Begins within 8 hours' },
+      { label: 'Pro', quantity: 5000, price: 235, deliveryEstimate: 'Begins within 4 hours' },
     ],
   ),
 ]
