@@ -8,39 +8,39 @@ import { Reveal, StaggerGroup, StaggerItem } from '@/components/ui/Reveal'
 const values = [
   {
     icon: Target,
-    title: 'Clarity first',
-    text: 'Clear pricing, realistic delivery estimates and honest wording — no fine print and no guarantees we cannot keep.',
+    title: '清晰为先',
+    text: '价格透明、交付预估务实、措辞诚实——没有小字条款，也不做无法兑现的承诺。',
   },
   {
     icon: ShieldCheck,
-    title: 'Safety by design',
-    text: 'We never ask for passwords or account credentials. A public profile link is all we ever need.',
+    title: '安全为本',
+    text: '我们绝不索要密码或账号凭证。一个公开主页链接就足够了。',
   },
   {
     icon: Heart,
-    title: 'Built for creators',
-    text: 'Every feature — from the checkout to the dashboard — is designed around how creators actually work.',
+    title: '为创作者而生',
+    text: '从结算到控制台，每一个功能都围绕创作者的实际工作方式设计。',
   },
 ]
 
 const stats = [
-  { value: 128000, format: 'compact' as const, label: 'Creator campaigns' },
-  { value: 340000, format: 'compact' as const, label: 'Orders delivered' },
-  { value: 6, format: 'int' as const, label: 'Platforms supported' },
-  { value: 24, format: 'int' as const, suffix: '/7', label: 'Support coverage' },
+  { value: 128000, format: 'compact' as const, label: '创作者推广' },
+  { value: 340000, format: 'compact' as const, label: '已交付订单' },
+  { value: 6, format: 'int' as const, label: '支持平台' },
+  { value: 24, format: 'int' as const, suffix: '/7', label: '客服覆盖' },
 ]
 
 export default function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow="About"
+        eyebrow="关于我们"
         title={
           <>
-            We help creators <span className="text-gradient">show up and grow</span>
+            帮助创作者<span className="text-gradient">崭露头角、不断成长</span>
           </>
         }
-        subtitle="Boostly is a social media growth and marketing services platform for creators, brands and businesses. Our mission is simple: make growing an audience feel as clean and professional as the content you publish."
+        subtitle="Boostly 是面向创作者、品牌与企业的社媒增长营销服务平台。我们的使命很简单：让增长受众的过程，和您发布的内容一样干净、专业。"
       />
 
       <section className="pb-20">
@@ -61,7 +61,7 @@ export default function AboutPage() {
               ))}
             </div>
             <p className="mt-3 text-center text-[11px] text-slate-600">
-              Illustrative demo figures — this is a demonstration platform.
+              数据截至 2026 年 9 月。
             </p>
           </Reveal>
 

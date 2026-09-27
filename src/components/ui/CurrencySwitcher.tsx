@@ -50,14 +50,14 @@ export default function CurrencySwitcher({ variant = 'dropdown', className }: Cu
     )
   }
 
-  const current = currencies.find((c) => c.code === currency) ?? currencies[1]
+  const current = currencies.find((c) => c.code === currency) ?? currencies[0]
 
   return (
     <div ref={ref} className={cn('relative', className)}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Choose currency"
+        aria-label="选择货币"
         aria-expanded={open}
         className="glass flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold text-white transition hover:border-violet-400/40"
       >

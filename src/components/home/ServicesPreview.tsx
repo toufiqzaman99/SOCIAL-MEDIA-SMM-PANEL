@@ -16,9 +16,9 @@ export default function ServicesPreview() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Creator Growth"
-          title="Popular engagement packages"
-          subtitle="A taste of the full catalog — followers, likes, views and engagement campaigns across six platforms."
+          eyebrow="创作者增长"
+          title="热门互动套餐"
+          subtitle="完整目录抢先看——覆盖六大平台的粉丝、点赞、播放量与互动推广。"
         />
 
         <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -37,7 +37,7 @@ export default function ServicesPreview() {
             onClick={() => navigate('/services')}
             className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-violet-400/50 hover:bg-white/5"
           >
-            View all services
+            查看全部服务
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

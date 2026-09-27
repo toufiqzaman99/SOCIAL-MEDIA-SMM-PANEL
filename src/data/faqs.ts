@@ -5,38 +5,38 @@ export interface Faq {
 
 export const faqs: Faq[] = [
   {
-    question: 'What services do you provide?',
+    question: '你们提供哪些服务？',
     answer:
-      'Boostly offers social media growth and marketing services across Instagram, TikTok, YouTube, Facebook, X and Telegram — including followers, likes, views, comments, engagement packages and more. All services are delivered as marketing and growth campaigns: results may vary and are never guaranteed.',
+      'Boostly 提供覆盖 Instagram、TikTok、YouTube、Facebook、X 和 Telegram 的社媒增长营销服务——包括粉丝、点赞、播放量、评论、互动套餐等。所有服务均以营销推广活动形式交付：效果可能因人而异，不承诺具体结果。',
   },
   {
-    question: 'How long does delivery take?',
+    question: '交付需要多长时间？',
     answer:
-      'Delivery estimates are shown on every package and at checkout. Most campaigns begin within 1–24 hours and are delivered gradually over the course of the campaign. You can follow the exact status of your order at any time in your dashboard.',
+      '每个套餐及结算页面均显示预计交付时间。大多数推广会在 1–24 小时内启动，并在活动期间逐步交付。您可以随时在控制台查看订单的最新状态。',
   },
   {
-    question: 'Do I need to provide my password?',
+    question: '需要提供我的密码吗？',
     answer:
-      'Never. You only need the public URL of the profile or page you want to grow. Boostly will never ask for your password or account credentials — and if anyone claiming to be us does, it is not us.',
+      '完全不需要。您只需提供想要推广的主页或视频的公开链接。Boostly 绝不会索要您的密码或账号凭证——如有人自称是我们并索要这些信息，那一定不是我们。',
   },
   {
-    question: 'Can I track my order?',
+    question: '可以跟踪订单进度吗？',
     answer:
-      'Yes. Every order receives a unique order ID and appears in your dashboard with a live status — Pending, Processing, Completed or Cancelled — along with a timeline of its progress.',
+      '可以。每个订单都有唯一的订单编号，并会在您的控制台中显示实时状态——待处理、处理中、已完成或已取消，同时附带进度时间线。',
   },
   {
-    question: 'Do you offer refunds?',
+    question: '支持退款吗？',
     answer:
-      'If an order cannot be started or delivered, you may request a refund in line with our Refund Policy. Orders that have been fully or partially delivered are generally non-refundable. See the Refund Policy page for the full details.',
+      '如果订单无法启动或交付，您可以根据退款政策申请退款。已全部或部分交付的订单通常不支持退款。详情请查看退款政策页面。',
   },
   {
-    question: 'Can I order multiple services?',
+    question: '可以同时下多个订单吗？',
     answer:
-      'Absolutely. You can place as many orders as you like — for the same profile or different ones — and manage them all from a single dashboard.',
+      '当然可以。您可以为同一个账号或不同账号同时下任意数量的订单，并统一在一个控制台中管理。',
   },
   {
-    question: 'Is there customer support?',
+    question: '有客服支持吗？',
     answer:
-      'Yes — our support team is available 24/7. Use the Support page in your dashboard or the contact form on the website, and we will get back to you within 24 hours.',
+      '有的——我们的客服团队 7×24 小时在线。您可以通过控制台中的支持页面或网站上的联系表单联系我们，我们会在 24 小时内回复。',
   },
 ]

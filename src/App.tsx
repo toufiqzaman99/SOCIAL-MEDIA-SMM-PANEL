@@ -17,6 +17,7 @@ const HomePage = lazy(() => import('@/pages/HomePage'))
 const ServicesPage = lazy(() => import('@/pages/ServicesPage'))
 const PricingPage = lazy(() => import('@/pages/PricingPage'))
 const TopUpPage = lazy(() => import('@/pages/TopUpPage'))
+const AdminPage = lazy(() => import('@/pages/AdminPage'))
 const HowItWorksPage = lazy(() => import('@/pages/HowItWorksPage'))
 const FaqPage = lazy(() => import('@/pages/FaqPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
@@ -62,6 +63,7 @@ export default function App() {
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/pricing" element={<PricingPage />} />
                     <Route path="/topup" element={<TopUpPage />} />
+                    <Route path="/admin" element={<AdminPage />} />
                     <Route path="/how-it-works" element={<HowItWorksPage />} />
                     <Route path="/faq" element={<FaqPage />} />
                     <Route path="/contact" element={<ContactPage />} />

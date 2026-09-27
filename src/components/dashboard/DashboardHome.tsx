@@ -1,4 +1,4 @@
-import { CheckCircle2, Info, Loader2, Package, PlusCircle, Wallet } from 'lucide-react'
+import { CheckCircle2, Loader2, Package, PlusCircle, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import OrdersTable from '@/components/dashboard/OrdersTable'
@@ -9,9 +9,9 @@ import { useApp } from '@/store/AppContext'
 import { useDemoLoading } from '@/lib/hooks'
 
 const quickActions = [
-  { label: 'Place a new order', to: '/dashboard/new', icon: PlusCircle, text: 'Browse services and check out in minutes.' },
-  { label: 'Top up wallet', to: '/dashboard/wallet', icon: Wallet, text: 'Add demo funds to your account balance.' },
-  { label: 'Contact support', to: '/dashboard/support', icon: CheckCircle2, text: 'Open a ticket — we reply within 24 hours.' },
+  { label: '新建订单', to: '/dashboard/new', icon: PlusCircle, text: '浏览服务，几分钟内完成下单。' },
+  { label: '钱包充值', to: '/dashboard/wallet', icon: Wallet, text: '为您的账户余额充值。' },
+  { label: '联系客服', to: '/dashboard/support', icon: CheckCircle2, text: '提交工单——我们将在 24 小时内回复。' },
 ]
 
 export default function DashboardHome() {
@@ -20,53 +20,45 @@ export default function DashboardHome() {
 
   const active = state.orders.filter((o) => o.status === 'pending' || o.status === 'processing').length
   const completed = state.orders.filter((o) => o.status === 'completed').length
-  const firstName = state.user?.name.split(' ')[0] ?? 'there'
+  const firstName = state.user?.name.split(' ')[0] ?? '朋友'
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
-      <div className="flex items-start gap-2.5 rounded-2xl border border-sky-400/25 bg-sky-400/10 p-4">
-        <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-300" />
-        <p className="text-xs leading-relaxed text-sky-200">
-          Demo mode — all orders, payments, wallet funds and activity shown here are simulated and stored
-          locally in your browser. No real services are delivered and no real payments are processed.
-        </p>
-      </div>
-
       <div>
-        <h2 className="font-display text-2xl font-bold text-white">Welcome back, {firstName} 👋</h2>
-        <p className="mt-1 text-sm text-slate-400">Here is what is happening with your campaigns today.</p>
+        <h2 className="font-display text-2xl font-bold text-white">欢迎回来，{firstName} 👋</h2>
+        <p className="mt-1 text-sm text-slate-400">这是您今天的推广动态。</p>
       </div>
 
       {/* Stats */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          label="Total Orders"
+          label="订单总数"
           value={<Counter value={state.orders.length} />}
           icon={Package}
-          hint="All time"
+          hint="全部时间"
           loading={loading}
         />
         <StatCard
-          label="Active Orders"
+          label="进行中订单"
           value={<Counter value={active} />}
           icon={Loader2}
           accent="text-sky-300"
-          hint="Pending + processing"
+          hint="待处理 + 处理中"
           loading={loading}
         />
         <StatCard
-          label="Completed Orders"
+          label="已完成订单"
           value={<Counter value={completed} />}
           icon={CheckCircle2}
           accent="text-emerald-300"
-          hint="Delivered campaigns"
+          hint="已交付推广"
           loading={loading}
         />
         <StatCard
-          label="Account Balance"
+          label="账户余额"
           value={loading ? null : <span className="text-3xl">{format(state.balance)}</span>}
           icon={Wallet}
-          hint="Demo wallet — no real funds"
+          hint="钱包余额"
           loading={loading}
         />
       </div>
@@ -91,9 +83,9 @@ export default function DashboardHome() {
       {/* Recent orders */}
       <div>
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-display text-lg font-semibold text-white">Recent orders</h3>
+          <h3 className="font-display text-lg font-semibold text-white">最近订单</h3>
           <Link to="/dashboard/orders" className="text-sm font-semibold text-violet-300 transition hover:text-violet-200">
-            View all →
+            查看全部 →
           </Link>
         </div>
         {loading ? (

@@ -4,6 +4,7 @@ import {
   Heart,
   Images,
   MessageCircle,
+  Radio,
   Share2,
   ThumbsUp,
   UserPlus,
@@ -31,6 +32,7 @@ const map: Record<ServiceIconId, LucideIcon> = {
   members: Users,
   postViews: Eye,
   reactions: Heart,
+  liveViews: Radio,
 }
 
 export function ServiceIcon({ icon, className }: { icon: ServiceIconId; className?: string }) {

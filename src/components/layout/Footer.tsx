@@ -5,26 +5,26 @@ import { TikTokIcon, XIcon } from '@/components/icons/PlatformIcons'
 import Logo from '@/components/ui/Logo'
 
 const companyLinks = [
-  { label: 'About', to: '/about' },
-  { label: 'How It Works', to: '/how-it-works' },
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
+  { label: '关于我们', to: '/about' },
+  { label: '运作流程', to: '/how-it-works' },
+  { label: '常见问题', to: '/faq' },
+  { label: '联系我们', to: '/contact' },
 ]
 
 const serviceLinks = [
-  { label: 'Services', to: '/services' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Top Up', to: '/topup' },
-  { label: 'Instagram Growth', to: '/services?platform=instagram' },
-  { label: 'TikTok Growth', to: '/services?platform=tiktok' },
-  { label: 'YouTube Growth', to: '/services?platform=youtube' },
+  { label: '全部服务', to: '/services' },
+  { label: '价格方案', to: '/pricing' },
+  { label: '钱包充值', to: '/topup' },
+  { label: 'Instagram 增长', to: '/services?platform=instagram' },
+  { label: 'TikTok 增长', to: '/services?platform=tiktok' },
+  { label: 'YouTube 增长', to: '/services?platform=youtube' },
 ]
 
 const supportLinks = [
-  { label: 'Terms', to: '/terms' },
-  { label: 'Privacy', to: '/privacy' },
-  { label: 'Refund Policy', to: '/refund' },
-  { label: 'Support', to: '/contact' },
+  { label: '服务条款', to: '/terms' },
+  { label: '隐私政策', to: '/privacy' },
+  { label: '退款政策', to: '/refund' },
+  { label: '客服支持', to: '/contact' },
 ]
 
 const socials = [
@@ -42,8 +42,7 @@ export default function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            Social media growth and marketing services for creators, brands and businesses — across every
-            major platform.
+            为创作者、品牌与企业提供覆盖各大主流平台的社媒增长营销服务。
           </p>
           <div className="mt-5 flex items-center gap-2">
             {socials.map(({ label, icon: Icon, href }) => (
@@ -61,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Company</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">公司</h3>
           <ul className="mt-4 space-y-2.5">
             {companyLinks.map((link) => (
               <li key={link.to}>
@@ -74,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Services</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">服务</h3>
           <ul className="mt-4 space-y-2.5">
             {serviceLinks.map((link) => (
               <li key={link.to}>
@@ -87,7 +86,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Support</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">支持</h3>
           <ul className="mt-4 space-y-2.5">
             {supportLinks.map((link) => (
               <li key={link.to}>
@@ -102,11 +101,10 @@ export default function Footer() {
 
       <div className="border-t border-white/5">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-center sm:flex-row sm:text-left">
-          <p className="text-xs text-slate-500">© 2026 Boostly. All rights reserved.</p>
-          <p className="max-w-md text-xs leading-relaxed text-slate-600">
-            Demo platform — all orders, payments and live activity shown are simulated. Payment gateway not
-            connected.
-          </p>
+          <p className="text-xs text-slate-500">© 2026 Boostly. 版权所有。</p>
+          <Link to="/admin" className="text-xs text-slate-500 transition hover:text-slate-300">
+            管理后台
+          </Link>
         </div>
       </div>
     </footer>

@@ -13,22 +13,22 @@ import { isValidEmail } from '@/lib/utils'
 const infoCards = [
   {
     icon: Mail,
-    title: 'Email us',
+    title: '邮件联系',
     text: 'support@boostly.com',
   },
   {
     icon: Clock,
-    title: 'Support hours',
-    text: '24/7, every day of the year',
+    title: '客服时间',
+    text: '全年 7×24 小时',
   },
   {
     icon: LifeBuoy,
-    title: 'Response time',
-    text: 'Within 24 hours',
+    title: '响应时间',
+    text: '24 小时内回复',
   },
 ]
 
-const topics = ['General question', 'Orders & Delivery', 'Payments & Billing', 'Partnership', 'Other']
+const topics = ['一般咨询', '订单与交付', '支付与账单', '商务合作', '其他']
 
 export default function ContactPage() {
   const { createTicket } = useApp()
@@ -45,10 +45,10 @@ export default function ContactPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const next: typeof errors = {}
-    if (name.trim().length < 2) next.name = 'Enter your name'
-    if (!isValidEmail(email)) next.email = 'Enter a valid email address'
-    if (!topic) next.topic = 'Select a topic'
-    if (message.trim().length < 10) next.message = 'Tell us a bit more (at least 10 characters)'
+    if (name.trim().length < 2) next.name = '请输入您的姓名'
+    if (!isValidEmail(email)) next.email = '请输入有效的邮箱地址'
+    if (!topic) next.topic = '请选择主题'
+    if (message.trim().length < 10) next.message = '请再多写一些内容（至少 10 个字符）'
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
     try {
       await createTicket({ subject: `${topic} — ${name.trim()}`, category: topic, message: message.trim() })
       setSent(true)
-      push({ title: 'Message sent', description: 'We will reply within 24 hours (demo).', type: 'success' })
+      push({ title: '消息已发送', description: '我们将在 24 小时内回复。', type: 'success' })
     } finally {
       setSubmitting(false)
     }
@@ -65,13 +65,13 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Contact"
+        eyebrow="联系我们"
         title={
           <>
-            Talk to our <span className="text-gradient">support team</span>
+            与我们的<span className="text-gradient">客服团队</span>沟通
           </>
         }
-        subtitle="Questions about services, orders or your account? We are here around the clock."
+        subtitle="对服务、订单或账户有疑问？我们全天候为您服务。"
       />
 
       <section className="pb-24">
@@ -89,9 +89,6 @@ export default function ContactPage() {
                 </div>
               </div>
             ))}
-            <p className="px-2 text-xs leading-relaxed text-slate-600">
-              Demo site — messages are stored locally in your browser and never sent to a real team.
-            </p>
           </Reveal>
 
           {/* Form */}
@@ -102,27 +99,26 @@ export default function ContactPage() {
                   <span className="grid h-16 w-16 place-items-center rounded-full border border-emerald-400/30 bg-emerald-400/10">
                     <CheckCircle2 className="h-8 w-8 text-emerald-400" />
                   </span>
-                  <h2 className="mt-5 font-display text-xl font-bold text-white">Message sent!</h2>
+                  <h2 className="mt-5 font-display text-xl font-bold text-white">消息已发送！</h2>
                   <p className="mt-2 max-w-sm text-sm text-slate-400">
-                    Thanks for reaching out — our team would reply within 24 hours. This is a demo, so the
-                    message stays in your browser.
+                    感谢您的来信——我们的团队会在 24 小时内回复您。
                   </p>
                   <Button variant="secondary" className="mt-6" onClick={() => setSent(false)}>
-                    Send another message
+                    再发一条消息
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Input
-                      label="Name"
+                      label="姓名"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       error={errors.name}
-                      placeholder="Alex Morgan"
+                      placeholder="张三"
                     />
                     <Input
-                      label="Email"
+                      label="邮箱"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -131,23 +127,23 @@ export default function ContactPage() {
                     />
                   </div>
                   <Select
-                    label="Topic"
+                    label="主题"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     error={errors.topic}
-                    placeholder="Select a topic"
+                    placeholder="请选择主题"
                     options={topics.map((t) => ({ value: t, label: t }))}
                   />
                   <TextArea
-                    label="Message"
+                    label="内容"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     error={errors.message}
-                    placeholder="How can we help?"
+                    placeholder="有什么可以帮您？"
                     rows={6}
                   />
                   <Button type="submit" fullWidth size="lg" loading={submitting} icon={Send}>
-                    Send Message
+                    发送消息
                   </Button>
                 </form>
               )}

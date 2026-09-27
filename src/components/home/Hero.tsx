@@ -40,14 +40,14 @@ const particles = Array.from({ length: 14 }, (_, i) => ({
 const floatingChips = [
   {
     icon: Users,
-    label: '+12,450 Followers',
+    label: '+12,450 粉丝',
     position: 'right-[8%] top-[30%]',
     delay: 0.7,
     tint: 'bg-fuchsia-500/15 text-fuchsia-300',
   },
   {
     icon: Eye,
-    label: '+245K Views',
+    label: '+24.5万 播放量',
     position: 'right-[15%] top-[55%]',
     delay: 1.1,
     tint: 'bg-sky-500/15 text-sky-300',
@@ -172,9 +172,9 @@ export default function Hero() {
               color: '#ffffff',
             }}
           >
-            <Zap size={24} className={iconInline} /> Grow Your Social Presence.
+            <Zap size={24} className={iconInline} /> 提升您的社媒影响力。
             <br />
-            <TrendingUp size={24} className={iconInline} /> Build Your Audience.
+            <TrendingUp size={24} className={iconInline} /> 打造您的忠实受众。
           </motion.h1>
 
           <motion.p
@@ -191,8 +191,7 @@ export default function Hero() {
               maxWidth: 560,
             }}
           >
-            Professional social media growth and marketing services designed to help creators, brands, and
-            businesses expand their online presence.
+            专业的社媒增长营销服务，助力创作者、品牌与企业扩大线上影响力。
           </motion.p>
 
           <motion.button
@@ -216,7 +215,7 @@ export default function Hero() {
               marginTop: 40,
             }}
           >
-            Explore Services
+            浏览服务
             <ArrowRightCircle size={20} />
           </motion.button>
 
@@ -229,7 +228,7 @@ export default function Hero() {
             className="mt-10 lg:hidden"
           >
             <p className="text-xs font-medium uppercase tracking-widest text-slate-500">
-              Grow across every platform
+              覆盖各大平台增长
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-2.5">
               {platforms.map((p) => (

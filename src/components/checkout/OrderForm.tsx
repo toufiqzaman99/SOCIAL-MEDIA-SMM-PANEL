@@ -11,9 +11,12 @@ import {
   ShieldCheck,
   Wallet,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import type { ComponentType } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import AlipayIcon from '@/components/icons/AlipayIcon'
+import WechatIcon from '@/components/icons/WechatIcon'
 
 import { PlatformIcon } from '@/components/icons/PlatformIcons'
 import Button from '@/components/ui/Button'
@@ -34,13 +37,20 @@ type Errors = Partial<
   >
 >
 
-const paymentMethods: Array<{ id: PaymentMethod; label: string; note: string; icon: LucideIcon }> = [
-  { id: 'card', label: 'Credit / Debit Card', note: 'Visa, Mastercard, Amex', icon: CreditCard },
-  { id: 'paypal', label: 'PayPal', note: 'You would be redirected to PayPal', icon: Wallet },
-  { id: 'crypto', label: 'Crypto', note: 'BTC · ETH · USDT — address provided after order', icon: Bitcoin },
+const paymentMethods: Array<{
+  id: PaymentMethod
+  label: string
+  note: string
+  icon: ComponentType<{ className?: string }>
+}> = [
+  { id: 'card', label: '银行卡', note: 'Visa、Mastercard、Amex', icon: CreditCard },
+  { id: 'alipay', label: '支付宝', note: '使用支付宝扫码支付', icon: AlipayIcon },
+  { id: 'wechat', label: '微信支付', note: '使用微信扫码支付', icon: WechatIcon },
+  { id: 'paypal', label: 'PayPal', note: '将跳转至 PayPal', icon: Wallet },
+  { id: 'crypto', label: '加密货币', note: 'BTC · ETH · USDT — 下单后提供地址', icon: Bitcoin },
 ]
 
-const stepsMeta: Array<{ label: string }> = [{ label: 'Order details' }, { label: 'Payment' }, { label: 'Done' }]
+const stepsMeta: Array<{ label: string }> = [{ label: '订单信息' }, { label: '支付' }, { label: '完成' }]
 
 export interface OrderFormProps {
   preset?: CheckoutPreset
@@ -92,11 +102,11 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
 
   const validateDetails = (): boolean => {
     const next: Errors = {}
-    if (!platformId) next.platform = 'Select a platform'
-    if (!serviceId) next.service = 'Select a service'
-    if (!packageId) next.package = 'Choose a package'
-    if (!isValidUrlLike(link)) next.link = 'Enter the public URL of your profile or page (no password needed)'
-    if (!isValidEmail(email)) next.email = 'Enter a valid email address'
+    if (!platformId) next.platform = '请选择平台'
+    if (!serviceId) next.service = '请选择服务'
+    if (!packageId) next.package = '请选择套餐'
+    if (!isValidUrlLike(link)) next.link = '请输入您主页或页面的公开链接（无需密码）'
+    if (!isValidEmail(email)) next.email = '请输入有效的邮箱地址'
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -104,10 +114,10 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
   const validateCard = (): boolean => {
     if (method !== 'card') return true
     const next: Errors = {}
-    if (cardName.trim().length < 2) next.cardName = 'Enter the name on the card'
-    if (cardNumber.replace(/\D/g, '').length !== 16) next.cardNumber = 'Enter a 16-digit card number'
-    if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) next.cardExpiry = 'Use MM/YY format'
-    if (!/^\d{3,4}$/.test(cardCvc)) next.cardCvc = '3–4 digits'
+    if (cardName.trim().length < 2) next.cardName = '请输入持卡人姓名'
+    if (cardNumber.replace(/\D/g, '').length !== 16) next.cardNumber = '请输入 16 位卡号'
+    if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) next.cardExpiry = '请使用 MM/YY 格式'
+    if (!/^\d{3,4}$/.test(cardCvc)) next.cardCvc = '3–4 位'
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -137,8 +147,8 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
       setPlacedOrder(order)
       setStep(3)
       push({
-        title: 'Order placed (demo)',
-        description: `Order ${order.id} received — no real payment was processed.`,
+        title: '下单成功',
+        description: `订单 ${order.id} 已收到，我们正在处理您的推广。`,
         type: 'success',
       })
     } finally {
@@ -189,33 +199,31 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
         >
           <CheckCircle2 className="h-10 w-10 text-emerald-400" />
         </motion.div>
-        <h2 className="mt-6 font-display text-2xl font-bold text-white">Order placed</h2>
+        <h2 className="mt-6 font-display text-2xl font-bold text-white">下单成功</h2>
         <p className="mt-3 text-sm leading-relaxed text-slate-400">
-          Your demo order <span className="font-semibold text-white">{placedOrder.id}</span> has been received
-          and will appear in your dashboard as <span className="text-amber-300">Pending</span>.
-          <br />
-          <span className="text-slate-500">No real payment was processed — this checkout is a demo.</span>
+          您的订单 <span className="font-semibold text-white">{placedOrder.id}</span>{' '}
+          已收到，将显示在您的控制台中，状态为 <span className="text-amber-300">待处理</span>。
         </p>
         <div className="glass mt-6 w-full rounded-2xl p-4 text-left text-sm">
           <div className="flex justify-between py-1">
-            <span className="text-slate-400">Service</span>
+            <span className="text-slate-400">服务</span>
             <span className="font-medium text-white">{placedOrder.serviceName}</span>
           </div>
           <div className="flex justify-between py-1">
-            <span className="text-slate-400">Quantity</span>
+            <span className="text-slate-400">数量</span>
             <span className="font-medium text-white">{formatNumber(placedOrder.quantity)}</span>
           </div>
           <div className="flex justify-between border-t border-white/5 py-1 pt-2">
-            <span className="text-slate-400">Total (demo)</span>
+            <span className="text-slate-400">合计</span>
             <span className="font-semibold text-white">{format(placedOrder.price)}</span>
           </div>
         </div>
         <div className="mt-7 flex w-full flex-col gap-3 sm:flex-row">
           <Button fullWidth onClick={handleTrackOrder}>
-            Track Order
+            跟踪订单
           </Button>
           <Button fullWidth variant="secondary" onClick={handleFinish}>
-            {variant === 'page' ? 'Place Another Order' : 'Continue Browsing'}
+            {variant === 'page' ? '再下一单' : '继续浏览'}
           </Button>
         </div>
       </div>
@@ -258,51 +266,50 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
 
   const summaryPanel = (
     <aside className="glass-strong h-fit rounded-3xl p-5">
-      <h3 className="font-display text-base font-semibold text-white">Order summary</h3>
+      <h3 className="font-display text-base font-semibold text-white">订单摘要</h3>
       <div className="mt-4 space-y-2.5 text-sm">
         <div className="flex justify-between gap-4">
-          <span className="text-slate-400">Service</span>
+          <span className="text-slate-400">服务</span>
           <span className="text-right font-medium text-white">{service ? service.name : '—'}</span>
         </div>
         <div className="flex justify-between gap-4">
-          <span className="text-slate-400">Platform</span>
+          <span className="text-slate-400">平台</span>
           <span className="font-medium text-white">
             {platformId ? platforms.find((p) => p.id === platformId)?.name : '—'}
           </span>
         </div>
         <div className="flex justify-between gap-4">
-          <span className="text-slate-400">Quantity</span>
+          <span className="text-slate-400">数量</span>
           <span className="font-medium text-white">{pkg ? formatNumber(pkg.quantity) : '—'}</span>
         </div>
         <div className="flex justify-between gap-4">
-          <span className="text-slate-400">Price</span>
+          <span className="text-slate-400">价格</span>
           <span className="font-medium text-white">{pkg ? format(pkg.price) : '—'}</span>
         </div>
         <div className="flex justify-between gap-4">
-          <span className="text-slate-400">Delivery</span>
+          <span className="text-slate-400">交付</span>
           <span className="text-right text-xs text-slate-400">{pkg ? pkg.deliveryEstimate : '—'}</span>
         </div>
       </div>
       <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
-        <span className="text-sm font-semibold text-white">Total</span>
+        <span className="text-sm font-semibold text-white">合计</span>
         <span className="font-display text-xl font-bold text-white">
           {pkg ? format(pkg.price) : '—'}
         </span>
       </div>
       <div className="mt-3 flex items-center justify-between gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5">
-        <span className="text-xs text-slate-400">Wallet balance (demo)</span>
+        <span className="text-xs text-slate-400">钱包余额</span>
         <span className="text-xs font-semibold text-white">{format(state.balance)}</span>
       </div>
       <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
-        Your wallet balance is used automatically when you place the order.{' '}
-        <span className="text-violet-300">Need funds? Top up first.</span>
+        下单时钱包余额将自动抵扣。 <span className="text-violet-300">余额不足？先去充值。</span>
       </p>
       <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
-        Marketing/growth service — results may vary and are not guaranteed. No hidden fees.
+        营销/增长服务——效果可能因人而异，不作保证。无隐藏费用。
       </p>
       <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
         <Lock className="h-3.5 w-3.5" />
-        Demo checkout — payment gateway not connected.
+        您的支付信息安全加密处理
       </div>
     </aside>
   )
@@ -311,8 +318,8 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
     <div className="mx-auto max-w-5xl">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-xl font-bold text-white sm:text-2xl">Order growth services</h2>
-          <p className="mt-1 text-sm text-slate-400">Complete your order — no account credentials required.</p>
+          <h2 className="font-display text-xl font-bold text-white sm:text-2xl">订购增长服务</h2>
+          <p className="mt-1 text-sm text-slate-400">完成您的订单——无需任何账号凭证。</p>
         </div>
         {stepsIndicator}
       </div>
@@ -330,27 +337,27 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                 className="space-y-4"
               >
                 <Select
-                  label="Platform"
+                  label="平台"
                   value={platformId}
                   onChange={(e) => handlePlatformChange(e.target.value)}
                   error={errors.platform}
-                  placeholder="Select a platform"
+                  placeholder="请选择平台"
                   options={platforms.map((p) => ({ value: p.id, label: p.name }))}
                 />
 
                 <Select
-                  label="Service"
+                  label="服务"
                   value={serviceId}
                   onChange={(e) => handleServiceChange(e.target.value)}
                   error={errors.service}
-                  placeholder={platformId ? 'Select a service' : 'Choose a platform first'}
+                  placeholder={platformId ? '请选择服务' : '请先选择平台'}
                   options={serviceOptions.map((s) => ({ value: s.id, label: s.name }))}
                   disabled={!platformId}
                 />
 
                 {service ? (
                   <div>
-                    <p className="mb-1.5 text-sm font-medium text-slate-200">Package</p>
+                    <p className="mb-1.5 text-sm font-medium text-slate-200">套餐</p>
                     <div className="grid gap-2.5 sm:grid-cols-2">
                       {service.packages.map((p) => {
                         const selected = p.id === packageId
@@ -371,7 +378,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                           >
                             {p.bestValue ? (
                               <span className="absolute right-3 top-3 rounded-full bg-violet-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-300">
-                                Best value
+                                超值
                               </span>
                             ) : null}
                             <p className="text-sm font-semibold text-white">{formatNumber(p.quantity)}</p>
@@ -390,35 +397,35 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                 ) : null}
 
                 <Input
-                  label="Social Media Username / URL"
+                  label="社媒用户名 / 链接"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
                   error={errors.link}
                   placeholder="instagram.com/yourbrand"
-                  hint="We never ask for passwords — just your public profile or page link."
+                  hint="我们绝不索要密码——只需您的公开主页或页面链接。"
                 />
 
                 <Input
-                  label="Email"
+                  label="邮箱"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   error={errors.email}
                   placeholder="you@example.com"
-                  hint="Order updates and receipts are sent here."
+                  hint="订单更新与回执将发送至此邮箱。"
                 />
 
                 <TextArea
-                  label="Special Instructions (optional)"
+                  label="特殊要求（选填）"
                   value={instructions}
                   onChange={(e) => setInstructions(e.target.value)}
-                  placeholder="Anything we should know about your campaign?"
+                  placeholder="关于您的推广，有什么需要我们知道吗？"
                   rows={3}
                   maxLength={300}
                 />
 
                 <Button fullWidth size="lg" iconRight={ArrowRight} onClick={handleContinue}>
-                  Continue to Payment
+                  前往支付
                 </Button>
               </motion.div>
             )}
@@ -434,14 +441,13 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                 <div className="flex items-start gap-2.5 rounded-2xl border border-amber-400/25 bg-amber-400/10 p-3.5">
                   <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
                   <p className="text-xs leading-relaxed text-amber-200">
-                    <span className="font-semibold">Demo checkout — payment gateway not connected.</span>{' '}
-                    Selecting a payment method and confirming this order does not initiate or complete any real
-                    payment.
+                    <span className="font-semibold">支付提示：</span>
+                    选择支付方式并确认订单，即表示您授权支付对应订单金额。
                   </p>
                 </div>
 
-                <p className="mt-5 mb-2 text-sm font-medium text-slate-200">Payment method</p>
-                <div className="grid gap-2.5 sm:grid-cols-3">
+                <p className="mt-5 mb-2 text-sm font-medium text-slate-200">支付方式</p>
+                <div className="grid gap-2.5 grid-cols-2 lg:grid-cols-5">
                   {paymentMethods.map((m) => {
                     const selected = m.id === method
                     return (
@@ -476,15 +482,15 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                     >
                       <div className="mt-4 space-y-4 rounded-2xl border border-white/5 bg-white/[0.02] p-4">
                         <Input
-                          label="Name on card"
+                          label="持卡人姓名"
                           value={cardName}
                           onChange={(e) => setCardName(e.target.value)}
                           error={errors.cardName}
-                          placeholder="Alex Morgan"
+                          placeholder="张三"
                           autoComplete="cc-name"
                         />
                         <Input
-                          label="Card number"
+                          label="卡号"
                           value={cardNumber}
                           onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
                           error={errors.cardNumber}
@@ -494,7 +500,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                         />
                         <div className="grid grid-cols-2 gap-4">
                           <Input
-                            label="Expiry"
+                            label="有效期"
                             value={cardExpiry}
                             onChange={(e) => setCardExpiry(formatCardExpiry(e.target.value))}
                             error={errors.cardExpiry}
@@ -513,7 +519,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
                           />
                         </div>
                         <p className="text-[11px] text-slate-500">
-                          Card details are only validated in the browser — nothing is transmitted or stored.
+                          卡号信息仅在浏览器内校验——不会被传输或存储。
                         </p>
                       </div>
                     </motion.div>
@@ -522,10 +528,10 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
 
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                   <Button variant="ghost" icon={ArrowLeft} onClick={() => setStep(1)}>
-                    Back
+                    返回
                   </Button>
                   <Button fullWidth size="lg" loading={submitting} iconRight={ShieldCheck} onClick={handlePlaceOrder}>
-                    Place Order — Demo
+                    提交订单
                   </Button>
                 </div>
               </motion.div>
@@ -540,8 +546,7 @@ export default function OrderForm({ preset, variant = 'modal', onClose }: OrderF
         <div className="mt-5 flex items-start gap-2 rounded-2xl border border-white/5 bg-white/[0.02] p-4">
           <PlatformIcon platform={platformId || 'instagram'} className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
           <p className="text-[11px] leading-relaxed text-slate-500">
-            By placing an order you agree to our Terms of Service and Refund Policy. Boostly services are
-            marketing and growth campaigns — results may vary and are not guaranteed.
+            提交订单即表示您同意我们的服务条款与退款政策。Boostly 服务为营销增长推广——效果可能因人而异，不作保证。
           </p>
         </div>
       ) : null}

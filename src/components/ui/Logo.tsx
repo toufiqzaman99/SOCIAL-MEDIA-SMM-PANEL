@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 export default function Logo({ className }: { className?: string }) {
   return (
-    <Link to="/" aria-label="Boostly home" className={cn('flex items-center gap-2.5', className)}>
+    <Link to="/" aria-label="Boostly 首页" className={cn('flex items-center gap-2.5', className)}>
       <span className="bg-brand-gradient grid h-9 w-9 place-items-center rounded-xl shadow-glow-sm">
         <Zap className="h-5 w-5 text-white" fill="currentColor" />
       </span>

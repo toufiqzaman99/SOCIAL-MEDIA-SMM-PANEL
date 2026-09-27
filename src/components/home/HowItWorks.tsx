@@ -16,26 +16,26 @@ const steps: Step[] = [
   {
     icon: Search,
     number: '01',
-    title: 'Choose a service',
-    text: 'Browse growth packages across six platforms and pick the campaign that fits your goals.',
+    title: '选择服务',
+    text: '浏览六大平台的增长套餐，挑选符合您目标的推广方案。',
   },
   {
     icon: Link2,
     number: '02',
-    title: 'Enter your profile/page URL',
-    text: 'Paste the public link of the account you want to grow. No passwords — ever.',
+    title: '填写主页 / 页面链接',
+    text: '粘贴您想推广账号的公开链接。绝不索要密码。',
   },
   {
     icon: CreditCard,
     number: '03',
-    title: 'Complete your order',
-    text: 'Review your summary and check out. You receive an order ID instantly.',
+    title: '完成下单',
+    text: '核对订单摘要并结算，您会立即收到订单编号。',
   },
   {
     icon: Activity,
     number: '04',
-    title: 'Track your campaign',
-    text: 'Follow live status updates in your dashboard, from processing to completion.',
+    title: '跟踪推广进度',
+    text: '在控制台中查看实时状态更新，从处理中到完成一目了然。',
   },
 ]
 
@@ -44,9 +44,9 @@ export default function HowItWorks() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="How It Works"
-          title="From order to results in four steps"
-          subtitle="A clean, transparent flow designed for creators — no account credentials, no hidden fees."
+          eyebrow="运作流程"
+          title="四步完成，从下单到见效"
+          subtitle="为创作者设计的简洁透明流程——无需账号凭证，没有隐藏费用。"
         />
 
         <div className="relative mt-14">

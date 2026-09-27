@@ -12,7 +12,7 @@ export default function LegalPage({ kind }: LegalPageProps) {
 
   return (
     <>
-      <PageHeader eyebrow="Legal" title={doc.title} subtitle={`Last updated: ${doc.updated}`} />
+      <PageHeader eyebrow="法律条款" title={doc.title} subtitle={`最近更新：${doc.updated}`} />
       <section className="pb-24">
         <div className="container-x">
           <Reveal className="mx-auto max-w-3xl space-y-8">

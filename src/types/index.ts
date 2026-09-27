@@ -8,7 +8,7 @@ export type PlatformId = 'instagram' | 'tiktok' | 'youtube' | 'facebook' | 'twit
 
 export type ServiceStatus = 'pending' | 'processing' | 'completed' | 'cancelled'
 
-export type PaymentMethod = 'card' | 'paypal' | 'crypto'
+export type PaymentMethod = 'card' | 'paypal' | 'crypto' | 'alipay' | 'wechat'
 
 export type TransactionType = 'payment' | 'deposit' | 'refund' | 'bonus'
 
@@ -43,6 +43,7 @@ export type ServiceIconId =
   | 'members'
   | 'postViews'
   | 'reactions'
+  | 'liveViews'
 
 export interface ServicePackage {
   id: string
@@ -132,12 +133,27 @@ export interface CheckoutPreset {
   packageId?: string
 }
 
+export type TopUpRequestStatus = 'pending' | 'approved' | 'rejected'
+
+/** A top-up payment request awaiting admin approval before balance is credited. */
+export interface TopUpRequest {
+  id: string
+  userId: string
+  amount: number
+  bonus: number
+  method: PaymentMethod
+  status: TopUpRequestStatus
+  createdAt: string
+  updatedAt: string
+}
+
 /** Everything the demo app persists locally */
 export interface AppData {
   user: User | null
   orders: Order[]
   transactions: Transaction[]
   tickets: Ticket[]
+  topUpRequests: TopUpRequest[]
   balance: number
   currency: CurrencyCode
 }

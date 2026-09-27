@@ -14,9 +14,9 @@ export default function FaqSection() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="FAQ"
-          title="Frequently asked questions"
-          subtitle="Everything you need to know before placing your first order."
+          eyebrow="常见问题"
+          title="常见问题解答"
+          subtitle="下单前您需要了解的一切。"
         />
 
         <Reveal className="mx-auto mt-12 max-w-3xl" delay={0.1}>

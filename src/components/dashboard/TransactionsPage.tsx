@@ -8,10 +8,10 @@ import { formatRelative, cn } from '@/lib/utils'
 import type { TransactionType } from '@/types'
 
 const meta: Record<TransactionType, { label: string; icon: LucideIcon; credit: boolean; classes: string }> = {
-  payment: { label: 'Payment', icon: ArrowUpRight, credit: false, classes: 'bg-rose-500/10 text-rose-300' },
-  deposit: { label: 'Deposit', icon: ArrowDownLeft, credit: true, classes: 'bg-emerald-500/10 text-emerald-300' },
-  refund: { label: 'Refund', icon: RotateCcw, credit: true, classes: 'bg-sky-500/10 text-sky-300' },
-  bonus: { label: 'Bonus', icon: Gift, credit: true, classes: 'bg-violet-500/10 text-violet-300' },
+  payment: { label: '支付', icon: ArrowUpRight, credit: false, classes: 'bg-rose-500/10 text-rose-300' },
+  deposit: { label: '充值', icon: ArrowDownLeft, credit: true, classes: 'bg-emerald-500/10 text-emerald-300' },
+  refund: { label: '退款', icon: RotateCcw, credit: true, classes: 'bg-sky-500/10 text-sky-300' },
+  bonus: { label: '赠送', icon: Gift, credit: true, classes: 'bg-violet-500/10 text-violet-300' },
 }
 
 export default function TransactionsPage() {
@@ -33,8 +33,8 @@ export default function TransactionsPage() {
       <div className="mx-auto max-w-3xl">
         <EmptyState
           icon={Receipt}
-          title="No transactions yet"
-          description="Order payments, wallet top-ups and refunds will appear here."
+          title="暂无交易记录"
+          description="订单支付、钱包充值与退款将显示在这里。"
         />
       </div>
     )
@@ -42,9 +42,6 @@ export default function TransactionsPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-5">
-      <p className="text-xs text-slate-500">
-        All transactions are simulated demo records — no real money has moved.
-      </p>
       <div className="glass divide-y divide-white/5 rounded-3xl">
         {state.transactions.map((t) => {
           const m = meta[t.type]

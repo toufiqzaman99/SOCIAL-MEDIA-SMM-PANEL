@@ -16,10 +16,10 @@ export interface Currency {
 }
 
 export const currencies: Currency[] = [
-  { code: 'CNY', symbol: '¥', name: 'Chinese Yuan (RMB)', ratePerHkd: 0.91, decimals: 0 },
-  { code: 'HKD', symbol: 'HK$', name: 'Hong Kong Dollar', ratePerHkd: 1, decimals: 0 },
-  { code: 'USD', symbol: '$', name: 'US Dollar', ratePerHkd: 0.1274, decimals: 2 },
-  { code: 'KRW', symbol: '₩', name: 'Korean Won', ratePerHkd: 168.15, decimals: 0 },
+  { code: 'CNY', symbol: '¥', name: '人民币 (CNY)', ratePerHkd: 0.91, decimals: 0 },
+  { code: 'HKD', symbol: 'HK$', name: '港币 (HKD)', ratePerHkd: 1, decimals: 0 },
+  { code: 'USD', symbol: '$', name: '美元 (USD)', ratePerHkd: 0.1274, decimals: 2 },
+  { code: 'KRW', symbol: '₩', name: '韩元 (KRW)', ratePerHkd: 168.15, decimals: 0 },
 ]
 
 export function getCurrency(code: CurrencyCode): Currency {
@@ -35,7 +35,7 @@ export function formatPrice(priceHkd: number, code: CurrencyCode, decimalsOverri
   const decimals = decimalsOverride ?? c.decimals
   const factor = 10 ** decimals
   const rounded = Math.round(convertFromHkd(priceHkd, code) * factor) / factor
-  return `${c.symbol}${rounded.toLocaleString('en-US', {
+  return `${c.symbol}${rounded.toLocaleString('zh-CN', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   })}`

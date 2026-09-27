@@ -26,20 +26,20 @@ export default function ServicesPage() {
   const list = active === 'all' ? services : servicesForPlatform(active)
 
   const tabs: Array<{ id: PlatformId | 'all'; label: string }> = [
-    { id: 'all', label: 'All' },
+    { id: 'all', label: '全部' },
     ...platforms.map((p) => ({ id: p.id as PlatformId, label: p.name })),
   ]
 
   return (
     <>
       <PageHeader
-        eyebrow="Services"
+        eyebrow="服务"
         title={
           <>
-            Creator Growth <span className="text-gradient">Services</span>
+            创作者增长<span className="text-gradient">服务</span>
           </>
         }
-        subtitle="A full catalog of marketing and growth campaigns across Instagram, TikTok, YouTube, Facebook, X and Telegram. Results may vary and are never guaranteed."
+        subtitle="覆盖 Instagram、TikTok、YouTube、Facebook、X 和 Telegram 的完整营销增长推广目录。效果可能因人而异，不作保证。"
       />
 
       <section className="pb-24">
@@ -90,10 +90,8 @@ export default function ServicesPage() {
           <div className="mx-auto mt-12 flex max-w-3xl items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
             <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-violet-300" />
             <p className="text-xs leading-relaxed text-slate-400">
-              All Boostly services are <span className="font-semibold text-slate-200">marketing and growth services</span>{' '}
-              delivered gradually as campaigns. Results may vary and are not guaranteed. We never ask for account
-              credentials — only a public profile or page URL. Delivery estimates refer to when a campaign is
-              estimated to begin.
+              所有 Boostly 服务均为<span className="font-semibold text-slate-200">营销与增长服务</span>
+              ，以推广活动形式逐步交付。效果可能因人而异，不作保证。我们绝不索要账号凭证——只需公开的主页或页面链接。交付时间预估指推广预计开始的时间。
             </p>
           </div>
         </div>

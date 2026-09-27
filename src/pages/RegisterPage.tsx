@@ -26,11 +26,11 @@ export default function RegisterPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const next: typeof errors = {}
-    if (name.trim().length < 2) next.name = 'Enter your full name'
-    if (!isValidEmail(email)) next.email = 'Enter a valid email address'
-    if (password.length < 8) next.password = 'Password must be at least 8 characters'
-    if (confirm !== password) next.confirm = 'Passwords do not match'
-    if (!terms) next.terms = 'Please accept the Terms of Service'
+    if (name.trim().length < 2) next.name = '请输入您的姓名'
+    if (!isValidEmail(email)) next.email = '请输入有效的邮箱地址'
+    if (password.length < 8) next.password = '密码至少需要 8 个字符'
+    if (confirm !== password) next.confirm = '两次输入的密码不一致'
+    if (!terms) next.terms = '请同意服务条款'
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
@@ -38,8 +38,8 @@ export default function RegisterPage() {
     try {
       const user = await register(name.trim(), email, password)
       push({
-        title: `Welcome to Boostly, ${user.name.split(' ')[0]}!`,
-        description: 'Demo account created — no real account or data leaves your browser.',
+        title: `欢迎加入 Boostly，${user.name.split(' ')[0]}！`,
+        description: '账户创建成功。',
         type: 'success',
       })
       navigate('/dashboard', { replace: true })
@@ -50,30 +50,29 @@ export default function RegisterPage() {
 
   const handleGoogle = () => {
     push({
-      title: 'Google Sign-In',
-      description: 'Google Sign-In is a visual placeholder in this demo.',
+      title: 'Google 登录',
+      description: 'Google 登录即将上线。',
       type: 'info',
     })
   }
 
   return (
     <AuthShell
-      title="Create your account"
-      subtitle="Join Boostly and start growing your presence."
-      demoNote="Demo mode — registration is simulated and stored only in your browser. No real account is created."
+      title="创建您的账户"
+      subtitle="加入 Boostly，开始提升您的社媒影响力。"
     >
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <Input
-          label="Full Name"
+          label="姓名"
           icon={User}
           value={name}
           onChange={(e) => setName(e.target.value)}
           error={errors.name}
-          placeholder="Alex Morgan"
+          placeholder="张三"
           autoComplete="name"
         />
         <Input
-          label="Email"
+          label="邮箱"
           type="email"
           icon={Mail}
           value={email}
@@ -84,7 +83,7 @@ export default function RegisterPage() {
         />
         <div className="grid gap-4 sm:grid-cols-2">
           <Input
-            label="Password"
+            label="密码"
             type="password"
             icon={Lock}
             value={password}
@@ -94,7 +93,7 @@ export default function RegisterPage() {
             autoComplete="new-password"
           />
           <Input
-            label="Confirm Password"
+            label="确认密码"
             type="password"
             icon={Lock}
             value={confirm}
@@ -114,13 +113,13 @@ export default function RegisterPage() {
               className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/5 accent-violet-500"
             />
             <span>
-              I agree to the{' '}
+              我已阅读并同意
               <Link to="/terms" className="font-medium text-violet-300 hover:text-violet-200">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
+                《服务条款》
+              </Link>
+              与
               <Link to="/privacy" className="font-medium text-violet-300 hover:text-violet-200">
-                Privacy Policy
+                《隐私政策》
               </Link>
             </span>
           </label>
@@ -128,13 +127,13 @@ export default function RegisterPage() {
         </div>
 
         <Button type="submit" fullWidth size="lg" loading={loading}>
-          Create Account
+          创建账户
         </Button>
       </form>
 
       <div className="my-6 flex items-center gap-3">
         <span className="h-px flex-1 bg-white/10" />
-        <span className="text-xs text-slate-500">or</span>
+        <span className="text-xs text-slate-500">或</span>
         <span className="h-px flex-1 bg-white/10" />
       </div>
 
@@ -144,13 +143,13 @@ export default function RegisterPage() {
         className="flex h-11 w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white text-sm font-semibold text-ink-900 transition hover:bg-slate-100"
       >
         <GoogleIcon className="h-5 w-5" />
-        Sign up with Google
+        使用 Google 注册
       </button>
 
       <p className="mt-6 text-center text-sm text-slate-400">
-        Already have an account?{' '}
+        已有账户？{' '}
         <Link to="/login" className="font-semibold text-violet-300 transition hover:text-violet-200">
-          Login
+          登录
         </Link>
       </p>
     </AuthShell>

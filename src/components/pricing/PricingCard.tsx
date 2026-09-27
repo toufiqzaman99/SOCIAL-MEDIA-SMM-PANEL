@@ -42,7 +42,7 @@ export default function PricingCard({
     >
       {bestValue ? (
         <span className="bg-brand-gradient absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-glow-sm">
-          Best value
+          超值
         </span>
       ) : null}
 
@@ -50,17 +50,17 @@ export default function PricingCard({
       <h3 className="mt-2 font-display text-xl font-semibold text-white">{name}</h3>
 
       <p className="mt-4 font-display text-2xl font-bold text-white">
-        {formatNumber(quantity)} <span className="text-base font-medium text-slate-400">Growth Credits</span>
+        {formatNumber(quantity)} <span className="text-base font-medium text-slate-400">增长点数</span>
       </p>
 
       <div className="mt-4 flex items-baseline gap-1.5">
         <span className="font-display text-4xl font-bold tracking-tight text-white">
           {format(displayPrice)}
         </span>
-        {monthly ? <span className="text-sm text-slate-400">/mo</span> : null}
+        {monthly ? <span className="text-sm text-slate-400">/月</span> : null}
       </div>
       <p className="mt-1 text-xs text-slate-500">
-        ≈ {formatPerUnit(displayPrice / quantity)} per credit{monthly ? ' · demo billing' : ''}
+        ≈ {formatPerUnit(displayPrice / quantity)} / 点{monthly ? ' · 月付' : ''}
       </p>
 
       <ul className="mt-6 flex-1 space-y-3 border-t border-white/5 pt-5">
@@ -82,10 +82,10 @@ export default function PricingCard({
         className="mt-6"
         onClick={onOrder}
       >
-        Order Now
+        立即订购
       </Button>
       <p className="mt-3 text-center text-[11px] leading-relaxed text-slate-600">
-        Marketing/growth service — results may vary and are not guaranteed.
+        营销/增长服务——效果可能因人而异，不作保证。
       </p>
     </div>
   )

@@ -33,9 +33,8 @@ export default function LiveActivity() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                <p className="text-sm font-semibold text-white">Live activity</p>
+                <p className="text-sm font-semibold text-white">实时动态</p>
               </div>
-              <span className="text-[11px] text-slate-600">simulated demo feed</span>
             </div>
 
             <ul className="relative mt-3 max-h-64 overflow-hidden">
@@ -63,7 +62,7 @@ export default function LiveActivity() {
             <div className="mt-3 flex items-center gap-2 border-t border-white/5 pt-3">
               <Activity className="h-3.5 w-3.5 text-slate-600" />
               <p className="text-[11px] leading-relaxed text-slate-600">
-                Demo activity — entries are simulated for demonstration purposes.
+                最近的平台订单与推广动态实时更新。
               </p>
             </div>
           </div>

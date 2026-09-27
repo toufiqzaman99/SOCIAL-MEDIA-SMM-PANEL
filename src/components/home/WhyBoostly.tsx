@@ -13,33 +13,33 @@ interface Feature {
 const features: Feature[] = [
   {
     icon: Zap,
-    title: 'Fast Delivery',
-    text: 'Most campaigns begin within 1–24 hours, with delivery estimates shown on every package.',
+    title: '快速交付',
+    text: '大多数推广在 1–24 小时内启动，每个套餐均标注预计交付时间。',
   },
   {
     icon: ShieldCheck,
-    title: 'Secure Checkout',
-    text: 'A clean checkout flow that never asks for passwords or account credentials — ever.',
+    title: '安全结算',
+    text: '简洁的结算流程，绝不索要密码或账号凭证。',
   },
   {
     icon: Headphones,
-    title: '24/7 Support',
-    text: 'A support team that answers through your dashboard and contact form, around the clock.',
+    title: '7×24 客服',
+    text: '客服团队通过控制台与联系表单全天候为您服务。',
   },
   {
     icon: BadgeDollarSign,
-    title: 'Transparent Pricing',
-    text: 'Clear package pricing with no hidden fees. What you see at checkout is what you pay.',
+    title: '价格透明',
+    text: '套餐价格清晰明了，无隐藏费用。所见即所付。',
   },
   {
     icon: Activity,
-    title: 'Order Tracking',
-    text: 'Live status updates for every campaign — Pending, Processing, Completed or Cancelled.',
+    title: '订单跟踪',
+    text: '每个推广都有实时状态更新——待处理、处理中、已完成或已取消。',
   },
   {
     icon: Sparkles,
-    title: 'Creator Friendly',
-    text: 'Built for creators and growing brands: multiple campaigns, one simple dashboard.',
+    title: '创作者友好',
+    text: '为创作者与成长型品牌打造：多个推广，一个简洁的控制台。',
   },
 ]
 
@@ -48,9 +48,9 @@ export default function WhyBoostly() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Why Boostly"
-          title="Everything you need to grow with confidence"
-          subtitle="We focused on the details that make a growth platform trustworthy and pleasant to use."
+          eyebrow="为什么选择 Boostly"
+          title="自信增长所需的一切"
+          subtitle="我们专注于那些让增长平台值得信赖、使用愉悦的细节。"
         />
 
         <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -7,7 +7,7 @@ export function Spinner({ className }: { className?: string }) {
   return (
     <div
       role="status"
-      aria-label="Loading"
+      aria-label="加载中"
       className={cn(
         'h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-violet-400',
         className,

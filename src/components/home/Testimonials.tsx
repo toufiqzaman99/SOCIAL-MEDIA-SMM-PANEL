@@ -10,16 +10,16 @@ export default function Testimonials() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Social Proof"
-          title="Loved by growing creators"
-          subtitle="Teams and creators run their growth campaigns through Boostly every day."
+          eyebrow="用户口碑"
+          title="深受成长型创作者喜爱"
+          subtitle="每天都有团队与创作者通过 Boostly 运营他们的增长推广。"
         />
 
         <StaggerGroup className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
             <StaggerItem key={testimonial.name}>
               <figure className="glass flex h-full flex-col rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-card">
-                <div className="flex items-center gap-1" aria-label={`${testimonial.rating} out of 5 stars`}>
+                <div className="flex items-center gap-1" aria-label={`5 星中的 ${testimonial.rating} 星`}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}

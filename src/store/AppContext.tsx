@@ -14,17 +14,25 @@ import { createOrder as apiCreateOrder } from '@/api/orders'
 import { recordPayment } from '@/api/payments'
 import { createTicket as apiCreateTicket } from '@/api/support'
 import { updateProfile as apiUpdateProfile } from '@/api/users'
-import { addFunds as apiAddFunds } from '@/api/wallet'
+import {
+  addFunds as apiAddFunds,
+  approveTopUpRequest as apiApproveTopUpRequest,
+  createTopUpRequest as apiCreateTopUpRequest,
+  rejectTopUpRequest as apiRejectTopUpRequest,
+} from '@/api/wallet'
 import { loadAppData, saveAppData } from '@/api/storage'
 import { formatPrice, formatPricePerUnit } from '@/lib/currency'
-import { formatNumber, uid } from '@/lib/utils'
+import { formatNumber, paymentMethodLabels, uid } from '@/lib/utils'
 import type {
   AppData,
   CreateOrderInput,
   CurrencyCode,
   Order,
+  PaymentMethod,
   ServiceStatus,
   Ticket,
+  TopUpRequest,
+  TopUpRequestStatus,
   Transaction,
   User,
 } from '@/types'
@@ -40,10 +48,13 @@ type Action =
   | { type: 'LOGOUT' }
   | { type: 'ORDER_PLACED'; order: Order; transaction: Transaction; balance: number }
   | { type: 'ORDER_STATUS'; orderId: string; status: ServiceStatus }
+  | { type: 'ORDER_STATUS_SET'; orderId: string; status: ServiceStatus }
   | { type: 'TICKET_ADD'; ticket: Ticket }
   | { type: 'TRANSACTION_ADD'; transaction: Transaction; balance: number }
   | { type: 'PROFILE_UPDATE'; patch: { name?: string; email?: string } }
   | { type: 'CURRENCY_SET'; code: CurrencyCode }
+  | { type: 'TOPUP_REQUEST_ADD'; request: TopUpRequest }
+  | { type: 'TOPUP_REQUEST_UPDATE'; id: string; status: TopUpRequestStatus }
 
 function reducer(state: AppData, action: Action): AppData {
   switch (action.type) {
@@ -68,6 +79,14 @@ function reducer(state: AppData, action: Action): AppData {
           return { ...o, status: action.status, updatedAt: new Date().toISOString() }
         }),
       }
+    case 'ORDER_STATUS_SET':
+      // Admin override — applies any status unconditionally.
+      return {
+        ...state,
+        orders: state.orders.map((o) =>
+          o.id === action.orderId ? { ...o, status: action.status, updatedAt: new Date().toISOString() } : o,
+        ),
+      }
     case 'TICKET_ADD':
       return { ...state, tickets: [action.ticket, ...state.tickets] }
     case 'TRANSACTION_ADD':
@@ -76,6 +95,15 @@ function reducer(state: AppData, action: Action): AppData {
       return { ...state, user: state.user ? { ...state.user, ...action.patch } : state.user }
     case 'CURRENCY_SET':
       return { ...state, currency: action.code }
+    case 'TOPUP_REQUEST_ADD':
+      return { ...state, topUpRequests: [action.request, ...state.topUpRequests] }
+    case 'TOPUP_REQUEST_UPDATE':
+      return {
+        ...state,
+        topUpRequests: state.topUpRequests.map((r) =>
+          r.id === action.id ? { ...r, status: action.status, updatedAt: new Date().toISOString() } : r,
+        ),
+      }
   }
 }
 
@@ -92,7 +120,13 @@ export interface AppContextValue {
   logout(): Promise<void>
   placeOrder(input: CreateOrderInput): Promise<Order>
   cancelOrder(orderId: string): Promise<void>
-  addFunds(amount: number, bonus?: number): Promise<void>
+  /** Admin: set any order status unconditionally. */
+  setOrderStatus(orderId: string, status: ServiceStatus): Promise<void>
+  addFunds(amount: number, bonus?: number, method?: PaymentMethod): Promise<void>
+  /** Alipay: create a payment request — balance is NOT credited until an admin approves. */
+  submitTopUpRequest(amount: number, bonus: number, method: PaymentMethod): Promise<TopUpRequest>
+  approveTopUpRequest(requestId: string): Promise<void>
+  rejectTopUpRequest(requestId: string): Promise<void>
   createTicket(input: { subject: string; category: string; message: string }): Promise<Ticket>
   updateProfile(patch: { name?: string; email?: string }): Promise<void>
 }
@@ -168,7 +202,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'ORDER_STATUS', orderId, status: 'cancelled' })
   }, [])
 
-  const addFunds = useCallback(async (amount: number, bonus = 0) => {
+  const setOrderStatus = useCallback(async (orderId: string, status: ServiceStatus) => {
+    dispatch({ type: 'ORDER_STATUS_SET', orderId, status })
+  }, [])
+
+  const addFunds = useCallback(async (amount: number, bonus = 0, method?: PaymentMethod) => {
     await apiAddFunds(amount)
     const userId = stateRef.current.user?.id ?? 'guest'
     const now = new Date().toISOString()
@@ -177,7 +215,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       userId,
       type: 'deposit',
       amount,
-      description: 'Wallet top-up (demo)',
+      description: method ? `钱包充值 · ${paymentMethodLabels[method]}` : '钱包充值',
       status: 'completed',
       createdAt: now,
     }
@@ -189,12 +227,65 @@ export function AppProvider({ children }: { children: ReactNode }) {
         userId,
         type: 'bonus',
         amount: bonus,
-        description: 'Top-up bonus (demo)',
+        description: '充值赠送',
         status: 'completed',
         createdAt: now,
       }
       dispatch({ type: 'TRANSACTION_ADD', transaction: bonusTransaction, balance: balance + bonus })
     }
+  }, [])
+
+  const submitTopUpRequest = useCallback(
+    async (amount: number, bonus: number, method: PaymentMethod): Promise<TopUpRequest> => {
+      const request = await apiCreateTopUpRequest(
+        { amount, bonus, method },
+        stateRef.current.user?.id ?? 'guest',
+      )
+      dispatch({ type: 'TOPUP_REQUEST_ADD', request })
+      return request
+    },
+    [],
+  )
+
+  /** Credit a pending top-up request — called from the admin panel (demo). */
+  const approveTopUpRequest = useCallback(async (requestId: string) => {
+    const request = stateRef.current.topUpRequests.find((r) => r.id === requestId)
+    if (!request || request.status !== 'pending') return
+    await apiApproveTopUpRequest(requestId)
+    dispatch({ type: 'TOPUP_REQUEST_UPDATE', id: requestId, status: 'approved' })
+
+    const userId = request.userId
+    const now = new Date().toISOString()
+    const deposit: Transaction = {
+      id: uid('TXN'),
+      userId,
+      type: 'deposit',
+      amount: request.amount,
+      description: `充值已通过 · ${paymentMethodLabels[request.method]}`,
+      status: 'completed',
+      createdAt: now,
+    }
+    const balance = stateRef.current.balance + request.amount
+    dispatch({ type: 'TRANSACTION_ADD', transaction: deposit, balance })
+    if (request.bonus > 0) {
+      const bonusTransaction: Transaction = {
+        id: uid('TXN'),
+        userId,
+        type: 'bonus',
+        amount: request.bonus,
+        description: '充值赠送',
+        status: 'completed',
+        createdAt: now,
+      }
+      dispatch({ type: 'TRANSACTION_ADD', transaction: bonusTransaction, balance: balance + request.bonus })
+    }
+  }, [])
+
+  const rejectTopUpRequest = useCallback(async (requestId: string) => {
+    const request = stateRef.current.topUpRequests.find((r) => r.id === requestId)
+    if (!request || request.status !== 'pending') return
+    await apiRejectTopUpRequest(requestId)
+    dispatch({ type: 'TOPUP_REQUEST_UPDATE', id: requestId, status: 'rejected' })
   }, [])
 
   const createTicket = useCallback(
@@ -238,7 +329,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       logout,
       placeOrder,
       cancelOrder,
+      setOrderStatus,
       addFunds,
+      submitTopUpRequest,
+      approveTopUpRequest,
+      rejectTopUpRequest,
       createTicket,
       updateProfile,
     }),
@@ -252,7 +347,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       logout,
       placeOrder,
       cancelOrder,
+      setOrderStatus,
       addFunds,
+      submitTopUpRequest,
+      approveTopUpRequest,
+      rejectTopUpRequest,
       createTicket,
       updateProfile,
     ],

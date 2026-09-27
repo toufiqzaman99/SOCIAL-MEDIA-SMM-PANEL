@@ -14,13 +14,13 @@ import { cn } from '@/lib/utils'
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
 const links = [
-  { label: 'Home', to: '/' },
-  { label: 'Services', to: '/services' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Top Up', to: '/topup' },
-  { label: 'How It Works', to: '/how-it-works' },
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Contact', to: '/contact' },
+  { label: '首页', to: '/' },
+  { label: '服务', to: '/services' },
+  { label: '价格', to: '/pricing' },
+  { label: '充值', to: '/topup' },
+  { label: '运作流程', to: '/how-it-works' },
+  { label: '常见问题', to: '/faq' },
+  { label: '联系我们', to: '/contact' },
 ]
 
 export default function Navbar() {
@@ -60,7 +60,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await logout()
-    push({ title: 'Signed out', description: 'Your demo session has ended.', type: 'info' })
+    push({ title: '已退出登录', description: '您已安全退出。', type: 'info' })
     navigate('/')
   }
 
@@ -78,7 +78,7 @@ export default function Navbar() {
         <Logo />
 
         {/* Desktop navigation */}
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="主导航">
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -101,22 +101,22 @@ export default function Navbar() {
           {state.user ? (
             <>
               <Link to="/dashboard" className={buttonClasses('primary', 'sm')}>
-                Dashboard
+                控制台
               </Link>
-              <Link to="/dashboard/settings" aria-label="Account settings">
+              <Link to="/dashboard/settings" aria-label="账户设置">
                 <Avatar name={state.user.name} className="ring-white/20 transition hover:ring-violet-400/60" />
               </Link>
             </>
           ) : (
             <>
               <Link to="/login" className={buttonClasses('ghost', 'sm')}>
-                Login
+                登录
               </Link>
               <Link to="/register" className={buttonClasses('outline', 'sm', 'hidden lg:inline-flex')}>
-                Sign Up
+                注册
               </Link>
               <Link to="/pricing" className={buttonClasses('primary', 'sm')}>
-                Get Started
+                立即开始
               </Link>
             </>
           )}
@@ -125,7 +125,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label={open ? '关闭菜单' : '打开菜单'}
           aria-expanded={open}
           className="rounded-lg p-2 text-slate-300 transition hover:bg-white/5 hover:text-white md:hidden"
         >
@@ -158,14 +158,14 @@ export default function Navbar() {
                 <Logo />
                 <button
                   onClick={() => setOpen(false)}
-                  aria-label="Close menu"
+                  aria-label="关闭菜单"
                   className="rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-5" aria-label="Mobile navigation">
+              <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-5" aria-label="移动端导航">
                 {links.map((link, i) => (
                   <motion.div
                     key={link.to}
@@ -190,28 +190,28 @@ export default function Navbar() {
 
               <div className="flex flex-col gap-2.5 border-t border-white/5 p-4">
                 <div>
-                  <p className="mb-2 text-xs font-medium uppercase tracking-widest text-slate-500">Currency</p>
+                  <p className="mb-2 text-xs font-medium uppercase tracking-widest text-slate-500">货币</p>
                   <CurrencySwitcher variant="row" />
                 </div>
                 {state.user ? (
                   <>
                     <Link to="/dashboard" className={buttonClasses('primary', 'md', 'w-full')}>
-                      Dashboard
+                      控制台
                     </Link>
                     <button onClick={handleLogout} className={buttonClasses('outline', 'md', 'w-full')}>
-                      Logout
+                      退出登录
                     </button>
                   </>
                 ) : (
                   <>
                     <Link to="/login" className={buttonClasses('outline', 'md', 'w-full')}>
-                      Login
+                      登录
                     </Link>
                     <Link to="/register" className={buttonClasses('outline', 'md', 'w-full')}>
-                      Sign Up
+                      注册
                     </Link>
                     <Link to="/pricing" className={buttonClasses('primary', 'md', 'w-full')}>
-                      Get Started
+                      立即开始
                     </Link>
                   </>
                 )}

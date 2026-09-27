@@ -1,3 +1,6 @@
+/** System CJK fallbacks — no webfont download (Chinese fonts are huge). */
+const CJK = ['"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', '"Noto Sans SC"']
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
@@ -26,10 +29,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Space Grotesk"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        heading: ['"Helvetica Now Display Bold"', 'Inter', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        sans: ['Inter', CJK, 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'Inter', CJK, 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['"Helvetica Now Display Bold"', 'Inter', CJK, 'sans-serif'],
+        body: ['Inter', CJK, 'sans-serif'],
       },
       boxShadow: {
         glow: '0 0 60px -15px rgba(124, 58, 237, 0.55)',

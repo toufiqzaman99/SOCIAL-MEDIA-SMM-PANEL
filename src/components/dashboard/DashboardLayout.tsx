@@ -29,23 +29,23 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard, end: true },
-  { label: 'New Order', to: '/dashboard/new', icon: PlusCircle },
-  { label: 'My Orders', to: '/dashboard/orders', icon: Package },
-  { label: 'Wallet', to: '/dashboard/wallet', icon: Wallet },
-  { label: 'Transactions', to: '/dashboard/transactions', icon: ArrowLeftRight },
-  { label: 'Support', to: '/dashboard/support', icon: LifeBuoy },
-  { label: 'Settings', to: '/dashboard/settings', icon: Settings },
+  { label: '总览', to: '/dashboard', icon: LayoutDashboard, end: true },
+  { label: '新建订单', to: '/dashboard/new', icon: PlusCircle },
+  { label: '我的订单', to: '/dashboard/orders', icon: Package },
+  { label: '钱包', to: '/dashboard/wallet', icon: Wallet },
+  { label: '交易记录', to: '/dashboard/transactions', icon: ArrowLeftRight },
+  { label: '客服支持', to: '/dashboard/support', icon: LifeBuoy },
+  { label: '账户设置', to: '/dashboard/settings', icon: Settings },
 ]
 
 const titles: Record<string, string> = {
-  '/dashboard': 'Dashboard',
-  '/dashboard/new': 'New Order',
-  '/dashboard/orders': 'My Orders',
-  '/dashboard/wallet': 'Wallet',
-  '/dashboard/transactions': 'Transactions',
-  '/dashboard/support': 'Support',
-  '/dashboard/settings': 'Settings',
+  '/dashboard': '总览',
+  '/dashboard/new': '新建订单',
+  '/dashboard/orders': '我的订单',
+  '/dashboard/wallet': '钱包',
+  '/dashboard/transactions': '交易记录',
+  '/dashboard/support': '客服支持',
+  '/dashboard/settings': '账户设置',
 }
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
@@ -55,7 +55,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
   const handleLogout = async () => {
     await logout()
-    push({ title: 'Signed out', description: 'Your demo session has ended.', type: 'info' })
+    push({ title: '已退出登录', description: '您已安全退出。', type: 'info' })
     navigate('/')
   }
 
@@ -65,7 +65,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <Logo />
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Dashboard navigation">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="控制台导航">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -93,15 +93,15 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
       <div className="border-t border-white/5 p-3">
         <div className="flex items-center gap-3 rounded-xl p-2">
-          <Avatar name={state.user?.name ?? 'Guest'} className="h-9 w-9" />
+          <Avatar name={state.user?.name ?? '访客'} className="h-9 w-9" />
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-white">{state.user?.name ?? 'Guest'}</p>
+            <p className="truncate text-sm font-semibold text-white">{state.user?.name ?? '访客'}</p>
             <p className="truncate text-xs text-slate-500">{state.user?.email ?? 'demo@boostly.com'}</p>
           </div>
           <button
             onClick={handleLogout}
-            title="Log out"
-            aria-label="Log out"
+            title="退出登录"
+            aria-label="退出登录"
             className="rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-rose-300"
           >
             <LogOut className="h-4 w-4" />
@@ -118,7 +118,7 @@ export default function DashboardLayout() {
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const title = titles[location.pathname] ?? 'Dashboard'
+  const title = titles[location.pathname] ?? '总览'
 
   return (
     <div className="min-h-screen lg:pl-64">
@@ -132,7 +132,7 @@ export default function DashboardLayout() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
-            aria-label="Open dashboard menu"
+            aria-label="打开控制台菜单"
             className="rounded-lg p-2 text-slate-300 transition hover:bg-white/5 lg:hidden"
           >
             <Menu className="h-5 w-5" />
@@ -146,9 +146,9 @@ export default function DashboardLayout() {
           </span>
           <button
             onClick={() =>
-              push({ title: 'No new notifications', description: 'You are all caught up (demo).', type: 'info' })
+              push({ title: '暂无新通知', description: '您已查看全部内容。', type: 'info' })
             }
-            aria-label="Notifications"
+            aria-label="通知"
             className="relative rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-white"
           >
             <Bell className="h-5 w-5" />

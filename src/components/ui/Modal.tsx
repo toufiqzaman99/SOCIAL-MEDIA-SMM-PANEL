@@ -79,7 +79,7 @@ export default function Modal({
                 {dismissible ? (
                   <button
                     onClick={onClose}
-                    aria-label="Close dialog"
+                    aria-label="关闭对话框"
                     className="rounded-lg p-1.5 text-slate-400 transition hover:bg-white/5 hover:text-white"
                   >
                     <X className="h-5 w-5" />

@@ -8,13 +8,13 @@ export default function HowItWorksPage() {
   return (
     <>
       <PageHeader
-        eyebrow="How It Works"
+        eyebrow="运作流程"
         title={
           <>
-            From order to campaign in <span className="text-gradient">four simple steps</span>
+            四个简单步骤，<span className="text-gradient">从下单到推广</span>
           </>
         }
-        subtitle="A transparent flow built for creators: pick a package, paste your public link, check out and track everything from your dashboard."
+        subtitle="为创作者打造的透明流程：选择套餐、粘贴公开链接、完成结算，一切进度尽在控制台。"
       />
       <HowItWorks />
       <WhyBoostly />

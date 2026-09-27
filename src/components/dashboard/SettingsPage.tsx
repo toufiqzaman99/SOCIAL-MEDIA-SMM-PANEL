@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Info, LogOut } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -17,9 +17,9 @@ interface ToggleRow {
 }
 
 const toggles: ToggleRow[] = [
-  { key: 'orders', label: 'Order updates', text: 'Status changes for your campaigns' },
-  { key: 'promos', label: 'Promotions', text: 'New services and seasonal offers' },
-  { key: 'support', label: 'Support replies', text: 'When our team answers your tickets' },
+  { key: 'orders', label: '订单更新', text: '推广状态变更通知' },
+  { key: 'promos', label: '促销活动', text: '新服务与季节优惠' },
+  { key: 'support', label: '客服回复', text: '客服团队回复您的工单时' },
 ]
 
 function Switch({ checked, onChange }: { checked: boolean; onChange: (value: boolean) => void }) {
@@ -59,15 +59,15 @@ export default function SettingsPage() {
   const handleSave = async (e: FormEvent) => {
     e.preventDefault()
     const next: typeof errors = {}
-    if (name.trim().length < 2) next.name = 'Enter your name'
-    if (!isValidEmail(email)) next.email = 'Enter a valid email address'
+    if (name.trim().length < 2) next.name = '请输入您的姓名'
+    if (!isValidEmail(email)) next.email = '请输入有效的邮箱地址'
     setErrors(next)
     if (Object.keys(next).length > 0) return
 
     setSaving(true)
     try {
       await updateProfile({ name: name.trim(), email: email.trim() })
-      push({ title: 'Profile updated', description: 'Your demo profile was saved locally.', type: 'success' })
+      push({ title: '资料已更新', description: '您的资料已保存。', type: 'success' })
     } finally {
       setSaving(false)
     }
@@ -75,7 +75,7 @@ export default function SettingsPage() {
 
   const handleLogout = async () => {
     await logout()
-    push({ title: 'Signed out', description: 'Your demo session has ended.', type: 'info' })
+    push({ title: '已退出登录', description: '您已安全退出。', type: 'info' })
     navigate('/')
   }
 
@@ -83,26 +83,26 @@ export default function SettingsPage() {
     <div className="mx-auto max-w-3xl space-y-6">
       {/* Profile */}
       <form onSubmit={handleSave} className="glass rounded-3xl p-5 sm:p-6">
-        <h3 className="font-display text-lg font-semibold text-white">Profile</h3>
-        <p className="mt-1 text-sm text-slate-400">Your demo account details — stored locally only.</p>
+        <h3 className="font-display text-lg font-semibold text-white">个人资料</h3>
+        <p className="mt-1 text-sm text-slate-400">更新您的账户信息。</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
-          <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
+          <Input label="姓名" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
+          <Input label="邮箱" type="email" value={email} onChange={(e) => setEmail(e.target.value)} error={errors.email} />
         </div>
         <div className="mt-5 flex items-center justify-between gap-4">
           <p className="text-xs text-slate-500">
-            Member since {state.user ? formatDate(state.user.createdAt) : '—'}
+            注册于 {state.user ? formatDate(state.user.createdAt) : '—'}
           </p>
           <Button type="submit" loading={saving}>
-            Save Changes
+            保存修改
           </Button>
         </div>
       </form>
 
       {/* Notifications */}
       <div className="glass rounded-3xl p-5 sm:p-6">
-        <h3 className="font-display text-lg font-semibold text-white">Notifications</h3>
-        <p className="mt-1 text-sm text-slate-400">Preferences are stored for this demo session only.</p>
+        <h3 className="font-display text-lg font-semibold text-white">通知设置</h3>
+        <p className="mt-1 text-sm text-slate-400">选择您希望接收的通知类型。</p>
         <div className="mt-5 space-y-4">
           {toggles.map((toggle) => (
             <div key={toggle.key} className="flex items-center justify-between gap-4 border-b border-white/5 pb-4 last:border-0 last:pb-0">
@@ -121,19 +121,13 @@ export default function SettingsPage() {
 
       {/* Account */}
       <div className="glass rounded-3xl p-5 sm:p-6">
-        <h3 className="font-display text-lg font-semibold text-white">Account</h3>
-        <div className="mt-4 flex items-start gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
-          <p className="text-xs leading-relaxed text-slate-400">
-            Password changes are not available in the demo — no real credentials exist.
-          </p>
-        </div>
+        <h3 className="font-display text-lg font-semibold text-white">账户</h3>
         <button
           onClick={handleLogout}
           className="mt-5 inline-flex items-center gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-2.5 text-sm font-semibold text-rose-300 transition hover:bg-rose-500/20"
         >
           <LogOut className="h-4 w-4" />
-          Log out of demo session
+          退出登录
         </button>
       </div>
     </div>

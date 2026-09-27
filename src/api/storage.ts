@@ -6,8 +6,8 @@ import { uid } from '@/lib/utils'
  * data would live on a server behind the other api modules.
  */
 
-// v2: prices moved to HKD base + multi-currency support (fresh seed on first visit).
-const STORAGE_KEY = 'boostly:state:v2'
+// v4: China localization — Chinese seed data + CNY default currency (fresh seed).
+const STORAGE_KEY = 'boostly:state:v4'
 
 function daysAgo(days: number, hours = 0): string {
   return new Date(Date.now() - (days * 24 + hours) * 3_600_000).toISOString()
@@ -21,7 +21,7 @@ function seedDemoData(): AppData {
       userId: 'demo',
       platform: 'instagram',
       serviceId: 'instagram-followers',
-      serviceName: 'Instagram Followers',
+      serviceName: 'Instagram 粉丝',
       packageId: 'instagram-followers-p1',
       quantity: 1000,
       price: 55,
@@ -37,7 +37,7 @@ function seedDemoData(): AppData {
       userId: 'demo',
       platform: 'tiktok',
       serviceId: 'tiktok-likes',
-      serviceName: 'TikTok Likes',
+      serviceName: 'TikTok 点赞',
       packageId: 'tiktok-likes-p2',
       quantity: 2500,
       price: 94,
@@ -53,7 +53,7 @@ function seedDemoData(): AppData {
       userId: 'demo',
       platform: 'youtube',
       serviceId: 'youtube-views',
-      serviceName: 'YouTube Views',
+      serviceName: 'YouTube 播放量',
       packageId: 'youtube-views-p2',
       quantity: 10000,
       price: 275,
@@ -69,7 +69,7 @@ function seedDemoData(): AppData {
       userId: 'demo',
       platform: 'telegram',
       serviceId: 'telegram-members',
-      serviceName: 'Telegram Channel Members',
+      serviceName: 'Telegram 频道成员',
       packageId: 'telegram-members-p2',
       quantity: 1000,
       price: 78,
@@ -83,21 +83,21 @@ function seedDemoData(): AppData {
   ]
 
   const transactions: Transaction[] = [
-    { id: uid('TXN'), userId: 'demo', type: 'bonus', amount: 50, description: 'Welcome bonus', status: 'completed', createdAt: daysAgo(45) },
-    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 500, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(40) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -55, description: `${orders[0].id} · Instagram Followers × 1,000`, status: 'completed', createdAt: daysAgo(12) },
-    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 200, description: 'Wallet top-up', status: 'completed', createdAt: daysAgo(9) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -275, description: `${orders[2].id} · YouTube Views × 10,000`, status: 'completed', createdAt: daysAgo(3) },
-    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -94, description: `${orders[1].id} · TikTok Likes × 2,500`, status: 'completed', createdAt: daysAgo(1) },
+    { id: uid('TXN'), userId: 'demo', type: 'bonus', amount: 50, description: '新用户奖励', status: 'completed', createdAt: daysAgo(45) },
+    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 500, description: '钱包充值', status: 'completed', createdAt: daysAgo(40) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -55, description: `${orders[0].id} · Instagram 粉丝 × 1,000`, status: 'completed', createdAt: daysAgo(12) },
+    { id: uid('TXN'), userId: 'demo', type: 'deposit', amount: 200, description: '钱包充值', status: 'completed', createdAt: daysAgo(9) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -275, description: `${orders[2].id} · YouTube 播放量 × 10,000`, status: 'completed', createdAt: daysAgo(3) },
+    { id: uid('TXN'), userId: 'demo', type: 'payment', amount: -94, description: `${orders[1].id} · TikTok 点赞 × 2,500`, status: 'completed', createdAt: daysAgo(1) },
   ]
 
   const tickets: Ticket[] = [
     {
       id: uid('TKT'),
       userId: 'demo',
-      subject: 'Delivery estimate question',
-      category: 'Orders & Delivery',
-      message: 'Hi! My TikTok campaign is still processing — can you confirm the estimated completion window?',
+      subject: '关于交付时间的咨询',
+      category: '订单与交付',
+      message: '您好！我的 TikTok 推广仍在处理中——能否确认一下预计完成时间？',
       status: 'answered',
       createdAt: daysAgo(2),
     },
@@ -105,7 +105,7 @@ function seedDemoData(): AppData {
 
   const balance = transactions.reduce((sum, t) => sum + t.amount, 0)
 
-  return { user: null, orders, transactions, tickets, balance, currency: 'HKD' }
+  return { user: null, orders, transactions, tickets, topUpRequests: [], balance, currency: 'CNY' }
 }
 
 export function loadAppData(): AppData {
@@ -114,7 +114,11 @@ export function loadAppData(): AppData {
     if (raw) {
       const parsed = JSON.parse(raw) as AppData
       if (parsed && Array.isArray(parsed.orders)) {
-        return { ...parsed, currency: parsed.currency ?? 'HKD' }
+        return {
+          ...parsed,
+          currency: parsed.currency ?? 'CNY',
+          topUpRequests: Array.isArray(parsed.topUpRequests) ? parsed.topUpRequests : [],
+        }
       }
     }
   } catch {

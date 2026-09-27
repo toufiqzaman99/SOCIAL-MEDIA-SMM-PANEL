@@ -13,11 +13,11 @@ import type { Order, ServiceStatus } from '@/types'
 type Filter = ServiceStatus | 'all'
 
 const filters: Array<{ id: Filter; label: string }> = [
-  { id: 'all', label: 'All' },
-  { id: 'pending', label: 'Pending' },
-  { id: 'processing', label: 'Processing' },
-  { id: 'completed', label: 'Completed' },
-  { id: 'cancelled', label: 'Cancelled' },
+  { id: 'all', label: '全部' },
+  { id: 'pending', label: '待处理' },
+  { id: 'processing', label: '处理中' },
+  { id: 'completed', label: '已完成' },
+  { id: 'cancelled', label: '已取消' },
 ]
 
 export default function OrdersPage() {
@@ -35,8 +35,8 @@ export default function OrdersPage() {
     await cancelOrder(order.id)
     setSelectedId(null)
     push({
-      title: 'Order cancelled',
-      description: `${order.id} was cancelled (demo) — no payment was charged.`,
+      title: '订单已取消',
+      description: `${order.id} 已取消。`,
       type: 'info',
     })
   }
@@ -79,7 +79,7 @@ export default function OrdersPage() {
 
       <div className="flex justify-center pt-2">
         <Button variant="secondary" onClick={() => navigate('/dashboard/new')}>
-          Place a new order
+          新建订单
         </Button>
       </div>
     </div>

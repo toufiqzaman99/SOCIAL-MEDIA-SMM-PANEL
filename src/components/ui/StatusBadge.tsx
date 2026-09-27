@@ -3,24 +3,24 @@ import { cn } from '@/lib/utils'
 
 const config: Record<ServiceStatus, { label: string; className: string; dot: string; pulse?: boolean }> = {
   pending: {
-    label: 'Pending',
+    label: '待处理',
     className: 'border-amber-400/25 bg-amber-400/10 text-amber-300',
     dot: 'bg-amber-400',
     pulse: true,
   },
   processing: {
-    label: 'Processing',
+    label: '处理中',
     className: 'border-sky-400/25 bg-sky-400/10 text-sky-300',
     dot: 'bg-sky-400',
     pulse: true,
   },
   completed: {
-    label: 'Completed',
+    label: '已完成',
     className: 'border-emerald-400/25 bg-emerald-400/10 text-emerald-300',
     dot: 'bg-emerald-400',
   },
   cancelled: {
-    label: 'Cancelled',
+    label: '已取消',
     className: 'border-rose-400/25 bg-rose-400/10 text-rose-300',
     dot: 'bg-rose-400',
   },

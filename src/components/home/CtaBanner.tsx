@@ -18,10 +18,10 @@ export default function CtaBanner() {
 
             <div className="relative">
               <h2 className="mx-auto max-w-2xl font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Ready to grow your presence?
+                准备好提升您的社媒影响力了吗？
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base text-white/80">
-                Browse the catalog, place your first order and track your campaign — all from one dashboard.
+                浏览服务目录、下第一单并跟踪推广进度——一个控制台全部搞定。
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Button
@@ -31,10 +31,10 @@ export default function CtaBanner() {
                   onClick={() => navigate('/pricing')}
                   className="border-white/30 bg-white text-ink-900 hover:bg-white/90"
                 >
-                  Get Started
+                  立即开始
                 </Button>
                 <Button size="lg" variant="outline" onClick={() => navigate('/contact')} className="border-white/40 text-white hover:bg-white/10">
-                  Talk to Support
+                  联系客服
                 </Button>
               </div>
             </div>

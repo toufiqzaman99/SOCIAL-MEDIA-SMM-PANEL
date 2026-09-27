@@ -13,141 +13,128 @@ export interface LegalDoc {
 
 export const legalDocs: Record<LegalKind, LegalDoc> = {
   terms: {
-    title: 'Terms of Service',
-    updated: 'August 2026',
+    title: '服务条款',
+    updated: '2026 年 8 月',
     sections: [
       {
-        heading: '1. Overview & demo disclosure',
+        heading: '1. 概述',
         body: [
-          'Boostly is a demonstration project showcasing a social media growth and marketing services platform. No real services are provided, no real payments are processed, and all orders, balances and activity shown in the application are simulated for demonstration purposes.',
-          'By using this website you agree to these Terms of Service. If you do not agree with any part of them, please do not use the website.',
+          'Boostly 提供社媒增长营销服务平台，覆盖 Instagram、TikTok、YouTube、Facebook、X 和 Telegram 等平台。使用本网站即表示您同意本服务条款。如您不同意其中任何内容，请勿使用本网站。',
         ],
       },
       {
-        heading: '2. Our services',
+        heading: '2. 我们的服务',
         body: [
-          'Boostly offers marketing and growth services for Instagram, TikTok, YouTube, Facebook, X and Telegram, including follower, like, view, comment and engagement campaigns. All services are marketing/growth services delivered gradually as campaigns.',
-          'Results are never guaranteed. Actual outcomes vary depending on many factors outside of our control, and any figures shown in the interface are illustrative.',
+          'Boostly 提供营销增长服务，包括粉丝、点赞、播放量、评论、直播观看与互动推广。所有服务均为营销/增长类服务，以推广活动形式逐步交付。',
+          '效果不作任何保证。实际结果受诸多不可控因素影响而有所差异，界面中显示的任何数字仅为示意。',
         ],
       },
       {
-        heading: '3. Orders & delivery',
+        heading: '3. 订单与交付',
         body: [
-          'When you place an order, you receive an order ID and live status updates (Pending, Processing, Completed or Cancelled) in your dashboard. Delivery estimates are shown on each package and at checkout and refer to when a campaign is estimated to begin, not to any guaranteed outcome.',
+          '下单后，您将获得订单编号，并可在控制台中查看实时状态（待处理、处理中、已完成或已取消）。每个套餐及结算页面均显示交付时间预估，该时间指推广预计开始的时间，不代表任何保证性结果。',
         ],
       },
       {
-        heading: '4. No credentials required',
+        heading: '4. 无需账号凭证',
         body: [
-          'We only ever require the public URL of the profile or page you want to grow. We will never ask for your password or any account credentials. Never share your password with anyone claiming to act on our behalf.',
+          '我们仅需您想推广的主页或视频的公开链接。我们绝不会索要您的密码或任何账号凭证。切勿将密码提供给任何自称代表我们行事的人。',
         ],
       },
       {
-        heading: '5. Payments (demo)',
+        heading: '5. 支付',
         body: [
-          'The checkout in this demo is not connected to a payment gateway. Selecting a payment method and confirming an order does not initiate, authorise or complete any real payment.',
+          '结算支持支付宝、微信支付、银行卡、PayPal 与加密货币等支付方式。选择支付方式并确认订单即表示您授权支付对应订单金额。通过支付宝 / 微信支付进行的充值需人工核验后到账。',
         ],
       },
       {
-        heading: '6. Acceptable use',
+        heading: '6. 可接受的使用',
         body: [
-          'You agree to only order services for profiles, pages and channels that you own or are authorised to promote. You are responsible for complying with the terms of service of the social platforms you use.',
+          '您同意仅为您拥有或获授权推广的主页、页面与频道下单。您有责任遵守所使用的社交平台的服务条款。',
         ],
       },
       {
-        heading: '7. Liability',
+        heading: '7. 责任',
         body: [
-          'The website is provided "as is" without warranties of any kind. To the maximum extent permitted by law, we are not liable for any direct or indirect damages arising from the use of the website or the simulated services described on it.',
+          '本网站按「现状」提供，不附带任何形式的担保。在法律允许的最大范围内，我们对因使用本网站或其提供的服务而产生的任何直接或间接损害不承担责任。',
         ],
       },
       {
-        heading: '8. Changes to these terms',
+        heading: '8. 条款变更',
         body: [
-          'We may update these Terms of Service from time to time. The date at the top of this page indicates the latest revision.',
+          '我们可能不时更新本服务条款。本页顶部的日期即为最新修订日期。',
         ],
       },
     ],
   },
   privacy: {
-    title: 'Privacy Policy',
-    updated: 'August 2026',
+    title: '隐私政策',
+    updated: '2026 年 8 月',
     sections: [
       {
-        heading: '1. Demo disclosure',
+        heading: '1. 我们收集的数据',
         body: [
-          'Boostly is a demonstration project. Any data you enter (names, email addresses, profile URLs, order details) is stored only in your browser and is never transmitted to a server.',
+          '我们收集您主动提供的账户信息（姓名与邮箱）、订单信息（平台、服务、套餐、主页链接、支付方式选择）以及支持工单内容。',
         ],
       },
       {
-        heading: '2. Data we collect',
+        heading: '2. 数据的使用方式',
         body: [
-          'In this demo, the application stores account details you enter (name and email), order details (platform, service, package, profile URL, payment method selection) and support messages locally in your browser.',
+          '收集的数据仅用于提供与改进服务——呈现您的控制台、订单历史、钱包与交易记录。数据不会被出售或用于与本服务无关的分析。',
         ],
       },
       {
-        heading: '3. How we use data',
+        heading: '3. 存储与保留',
         body: [
-          'Locally stored data is used only to render the demo experience — your dashboard, order history, wallet and transactions. It is not shared, sold or analysed.',
+          '您的数据会被妥善存储，并可在账户注销后删除。您也可以随时联系我们要求删除您的数据。',
         ],
       },
       {
-        heading: '4. Storage & retention',
+        heading: '4. 支付信息',
         body: [
-          'All data lives in your browser\'s local storage and can be removed at any time by clearing your browser data for this site.',
+          '支付由支付宝、微信支付等支付服务商处理，支付凭据由支付服务商直接加密处理，我们不存储您的完整卡号或支付密码。',
         ],
       },
       {
-        heading: '5. Payment information',
+        heading: '5. 第三方服务',
         body: [
-          'The checkout is a demo and is not connected to any payment gateway. Any card details typed into the demo form are used only for client-side validation and are not transmitted or stored anywhere.',
+          '为提供支付与统计服务，我们可能与支付处理商、分析服务提供商共享必要的最小化数据，且均受严格的保密协议约束。',
         ],
       },
       {
-        heading: '6. Third-party services',
+        heading: '6. 联系我们',
         body: [
-          'A production version of this platform would integrate payment processors and analytics providers. Those integrations are not present in this demo.',
-        ],
-      },
-      {
-        heading: '7. Contact',
-        body: [
-          'Questions about this policy can be sent via the contact page. Since this is a demo, no formal data controller relationship exists.',
+          '关于本政策的疑问可通过联系页面发送，我们会在 24 小时内回复。',
         ],
       },
     ],
   },
   refund: {
-    title: 'Refund Policy',
-    updated: 'August 2026',
+    title: '退款政策',
+    updated: '2026 年 8 月',
     sections: [
       {
-        heading: '1. Demo disclosure',
+        heading: '1. 退款资格',
         body: [
-          'This is a demonstration platform. No real payments are collected, so no real refunds are processed. This policy describes how refunds would work in a production deployment.',
+          '在预计时间窗口内未启动的订单可申请全额退款。如因我方原因导致推广无法启动或完成，您有权按未交付部分的比例获得全额或部分退款。',
         ],
       },
       {
-        heading: '2. Eligibility',
+        heading: '2. 不可退款的情形',
         body: [
-          'Orders that have not started within the estimated window are eligible for a full refund. If we are unable to begin or complete a campaign due to an error on our side, you are entitled to a full or partial refund proportional to the undelivered portion.',
+          '已全部或部分交付的订单通常不支持退款；针对私密、受限或无法访问的主页所下的订单同样如此——除非问题出在我方。会员套餐开通后，未使用月份的会员费可按比例退还。',
         ],
       },
       {
-        heading: '3. Non-refundable cases',
+        heading: '3. 如何申请退款',
         body: [
-          'Orders that have been fully or partially delivered are generally non-refundable, as are orders placed for profiles that are private, restricted or otherwise unreachable — unless the issue is on our side.',
+          '在控制台中提交支持工单，附上您的订单编号与申请原因。我们会在 2 个工作日内审核。',
         ],
       },
       {
-        heading: '4. How to request a refund',
+        heading: '4. 处理时间',
         body: [
-          'Open a support ticket from your dashboard with your order ID and the reason for the request. Requests are reviewed within 2 business days.',
-        ],
-      },
-      {
-        heading: '5. Processing time',
-        body: [
-          'Approved refunds are returned to the original payment method within 5–10 business days depending on the payment provider.',
+          '已批准的退款将按原支付方式退回，到账时间视支付服务商而定，通常为 5–10 个工作日。',
         ],
       },
     ],

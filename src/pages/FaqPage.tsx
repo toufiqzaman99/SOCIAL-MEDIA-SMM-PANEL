@@ -6,13 +6,13 @@ export default function FaqPage() {
   return (
     <>
       <PageHeader
-        eyebrow="FAQ"
+        eyebrow="常见问题"
         title={
           <>
-            Frequently asked <span className="text-gradient">questions</span>
+            常见问题<span className="text-gradient">解答</span>
           </>
         }
-        subtitle="Everything you need to know about Boostly services, delivery, tracking and support."
+        subtitle="关于 Boostly 服务、交付、订单跟踪与客服支持，您想了解的一切都在这里。"
       />
       <FaqSection />
       <CtaBanner />

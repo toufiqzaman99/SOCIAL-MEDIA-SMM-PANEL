@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { PlatformIcon } from '@/components/icons/PlatformIcons'
 import PricingGrid from '@/components/pricing/PricingGrid'
+import MembershipSection from '@/components/membership/MembershipSection'
 import FaqSection from '@/components/home/FaqSection'
 import PageHeader from '@/components/ui/PageHeader'
 import { platforms } from '@/data/platforms'
@@ -27,13 +28,13 @@ export default function PricingPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Pricing"
+        eyebrow="价格方案"
         title={
           <>
-            Growth packages, <span className="text-gradient">priced clearly</span>
+            增长套餐，<span className="text-gradient">价格清晰</span>
           </>
         }
-        subtitle="One-time or simulated monthly billing. Every package includes order tracking, support and no hidden fees."
+        subtitle="一次性或按自然月计费。每个套餐均包含订单跟踪与客服支持，无隐藏费用。"
       />
 
       <section className="pb-24">
@@ -57,15 +58,13 @@ export default function PricingPage() {
                       className="bg-brand-gradient absolute inset-0 rounded-full shadow-glow-sm"
                     />
                   ) : null}
-                  <span className="relative">{option === 'one-time' ? 'One-time' : 'Monthly'}</span>
+                  <span className="relative">{option === 'one-time' ? '一次性' : '月付'}</span>
                 </button>
               ))}
             </div>
           </div>
           <p className="mt-3 text-center text-xs text-slate-500">
-            {billing === 'monthly'
-              ? 'Monthly plans are simulated for this demo — no recurring charges occur.'
-              : 'Demo pricing — no real payments are processed.'}
+            {billing === 'monthly' ? '月付方案按自然月计费，可随时取消。' : '所有套餐均包含订单跟踪与客服支持。'}
           </p>
 
           {/* Platform tabs */}
@@ -108,13 +107,13 @@ export default function PricingPage() {
           <div className="mx-auto mt-12 flex max-w-3xl items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
             <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-violet-300" />
             <p className="text-xs leading-relaxed text-slate-400">
-              All packages are marketing/growth campaigns. Results may vary and are not guaranteed. Delivery
-              estimates indicate when a campaign is estimated to begin. No account credentials are ever required.
+              所有套餐均为营销/增长推广。效果可能因人而异，不作保证。交付时间预估指推广预计开始的时间。全程无需任何账号凭证。
             </p>
           </div>
         </div>
       </section>
 
+      <MembershipSection />
       <FaqSection />
     </>
   )

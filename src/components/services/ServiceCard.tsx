@@ -28,7 +28,7 @@ export default function ServiceCard({ service, onOrder }: ServiceCardProps) {
 
       {service.popular ? (
         <span className="bg-brand-gradient absolute right-4 top-4 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white shadow-glow-sm">
-          Popular
+          热门
         </span>
       ) : null}
 
@@ -50,15 +50,15 @@ export default function ServiceCard({ service, onOrder }: ServiceCardProps) {
 
         <div className="mt-5 flex items-center justify-between border-t border-white/5 pt-4">
           <div>
-            <p className="text-xs text-slate-500">From</p>
+            <p className="text-xs text-slate-500">起价</p>
             <p className="font-display text-lg font-bold text-white">{format(startingPrice)}</p>
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-xl border border-violet-400/30 bg-violet-400/10 px-3.5 py-2 text-sm font-semibold text-violet-300 transition group-hover:bg-violet-400/20 group-hover:text-violet-200">
-            Order Now
+            立即订购
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </span>
         </div>
-        <p className="mt-3 text-xs text-slate-500">{service.deliveryEstimate} · no password required</p>
+        <p className="mt-3 text-xs text-slate-500">{service.deliveryEstimate} · 无需密码</p>
       </div>
     </div>
   )

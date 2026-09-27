@@ -3,13 +3,13 @@ import { StaggerGroup, StaggerItem } from '@/components/ui/Reveal'
 import { flagshipFor } from '@/data/services'
 import type { CheckoutPreset, Platform } from '@/types'
 
-const tierNames = ['Starter', 'Growth', 'Pro', 'Max']
+const tierNames = ['入门', '进阶', '专业', '至尊']
 
 const sharedFeatures = [
-  'Gradual, natural-paced delivery',
-  'Order tracking in your dashboard',
-  'No password required — public link only',
-  '24/7 customer support',
+  '渐进、自然节奏的交付',
+  '控制台订单跟踪',
+  '无需密码——仅需公开链接',
+  '7×24 小时客服支持',
 ]
 
 export interface PricingGridProps {
@@ -32,9 +32,9 @@ export default function PricingGrid({ platform, monthly = false, onOrder }: Pric
             name={pkg.label ?? tierNames[i] ?? 'Package'}
             quantity={pkg.quantity}
             price={pkg.price}
-            scopeLabel={`${platform.name} Growth`}
+            scopeLabel={`${platform.name} 增长`}
             deliveryEstimate={pkg.deliveryEstimate}
-            features={[...sharedFeatures, ...(pkg.bestValue ? ['Priority campaign queue'] : [])]}
+            features={[...sharedFeatures, ...(pkg.bestValue ? ['优先推广队列'] : [])]}
             bestValue={pkg.bestValue}
             monthly={monthly}
             onOrder={() => onOrder({ platformId: platform.id, serviceId: flagship.id, packageId: pkg.id })}

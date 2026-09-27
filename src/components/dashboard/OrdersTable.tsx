@@ -33,8 +33,8 @@ export default function OrdersTable({ orders, loading, limit, onSelect, onCancel
     return (
       <EmptyState
         icon={Package}
-        title="No orders yet"
-        description="Place your first growth campaign and it will show up here with live status updates."
+        title="暂无订单"
+        description="下单您的第一个增长推广后，它会连同实时状态更新一起显示在这里。"
       />
     )
   }
@@ -46,7 +46,7 @@ export default function OrdersTable({ orders, loading, limit, onSelect, onCancel
         {onSelect ? (
           <button
             onClick={() => onSelect(order)}
-            aria-label={`View order ${order.id}`}
+            aria-label={`查看订单 ${order.id}`}
             className="rounded-lg p-2 text-slate-400 transition hover:bg-white/5 hover:text-white"
           >
             <Eye className="h-4 w-4" />
@@ -55,7 +55,7 @@ export default function OrdersTable({ orders, loading, limit, onSelect, onCancel
         {cancellable && onCancel ? (
           <button
             onClick={() => onCancel(order)}
-            aria-label={`Cancel order ${order.id}`}
+            aria-label={`取消订单 ${order.id}`}
             className="rounded-lg p-2 text-slate-400 transition hover:bg-rose-500/10 hover:text-rose-300"
           >
             <XCircle className="h-4 w-4" />
@@ -72,13 +72,13 @@ export default function OrdersTable({ orders, loading, limit, onSelect, onCancel
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-white/5 text-xs uppercase tracking-wider text-slate-500">
-              <th className="px-5 py-3.5 font-medium">Order ID</th>
-              <th className="px-5 py-3.5 font-medium">Service</th>
-              <th className="px-5 py-3.5 font-medium">Platform</th>
-              <th className="px-5 py-3.5 text-right font-medium">Quantity</th>
-              <th className="px-5 py-3.5 font-medium">Status</th>
-              <th className="px-5 py-3.5 font-medium">Date</th>
-              <th className="px-5 py-3.5 text-right font-medium">Actions</th>
+              <th className="px-5 py-3.5 font-medium">订单编号</th>
+              <th className="px-5 py-3.5 font-medium">服务</th>
+              <th className="px-5 py-3.5 font-medium">平台</th>
+              <th className="px-5 py-3.5 text-right font-medium">数量</th>
+              <th className="px-5 py-3.5 font-medium">状态</th>
+              <th className="px-5 py-3.5 font-medium">日期</th>
+              <th className="px-5 py-3.5 text-right font-medium">操作</th>
             </tr>
           </thead>
           <tbody>

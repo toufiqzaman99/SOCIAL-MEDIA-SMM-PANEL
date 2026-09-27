@@ -17,9 +17,9 @@ export default function PricingSection() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Pricing"
-          title="Simple, transparent pricing"
-          subtitle="No hidden fees — the price you see is the price you pay. Every package includes order tracking and support."
+          eyebrow="价格方案"
+          title="简单透明的价格"
+          subtitle="无隐藏费用——所见即所付。每个套餐均包含订单跟踪与客服支持。"
         />
 
         <div className="mt-12">
@@ -31,7 +31,7 @@ export default function PricingSection() {
             onClick={() => navigate('/pricing')}
             className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:border-violet-400/50 hover:bg-white/5"
           >
-            View pricing for all platforms
+            查看所有平台的价格
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowUpRight, Info, Plus, Wallet } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Clock, Info, Plus, Wallet } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -6,7 +6,14 @@ import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
 import { useApp } from '@/store/AppContext'
 import { useToast } from '@/store/ToastContext'
-import { formatRelative, cn } from '@/lib/utils'
+import { formatRelative, paymentMethodLabels, cn } from '@/lib/utils'
+import type { TopUpRequestStatus } from '@/types'
+
+const statusMeta: Record<TopUpRequestStatus, { label: string; className: string }> = {
+  pending: { label: '待审核', className: 'border-amber-400/25 bg-amber-400/10 text-amber-300' },
+  approved: { label: '已通过', className: 'border-emerald-400/25 bg-emerald-400/10 text-emerald-300' },
+  rejected: { label: '已拒绝', className: 'border-rose-400/25 bg-rose-400/10 text-rose-300' },
+}
 
 const chips = [10, 25, 50, 100]
 
@@ -24,8 +31,8 @@ export default function WalletPage() {
       await addFunds(amount)
       setOpen(false)
       push({
-        title: 'Funds added (demo)',
-        description: `${format(amount)} added to your demo wallet — no real money involved.`,
+        title: '充值成功',
+        description: `${format(amount)} 已存入钱包余额。`,
         type: 'success',
       })
     } finally {
@@ -42,15 +49,15 @@ export default function WalletPage() {
         <div className="relative flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
             <p className="flex items-center gap-2 text-sm font-medium text-white/80">
-              <Wallet className="h-4 w-4" /> Available balance
+              <Wallet className="h-4 w-4" /> 可用余额
             </p>
             <p className="mt-2 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
               {format(state.balance)}
             </p>
-            <p className="mt-2 text-xs text-white/70">Demo wallet — funds are simulated and cannot be withdrawn.</p>
+            <p className="mt-2 text-xs text-white/70">充值金额仅用于购买服务，不可提现。</p>
           </div>
           <Button variant="secondary" icon={Plus} onClick={() => setOpen(true)} className="border-white/30 bg-white text-ink-900 hover:bg-white/90">
-            Top Up (demo)
+            充值
           </Button>
         </div>
       </div>
@@ -58,9 +65,9 @@ export default function WalletPage() {
       {/* Recent activity */}
       <div>
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-display text-lg font-semibold text-white">Recent wallet activity</h3>
+          <h3 className="font-display text-lg font-semibold text-white">钱包动态</h3>
           <Link to="/dashboard/transactions" className="text-sm font-semibold text-violet-300 hover:text-violet-200">
-            View all →
+            查看全部 →
           </Link>
         </div>
         <div className="glass divide-y divide-white/5 rounded-3xl">
@@ -91,18 +98,57 @@ export default function WalletPage() {
         </div>
       </div>
 
+      {/* Top-up requests awaiting admin approval */}
+      {state.topUpRequests.length > 0 ? (
+        <div>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="font-display text-lg font-semibold text-white">充值申请</h3>
+            <span className="text-xs text-slate-500">管理员审核通过后到账</span>
+          </div>
+          <div className="glass divide-y divide-white/5 rounded-3xl">
+            {state.topUpRequests.slice(0, 5).map((request) => {
+              const meta = statusMeta[request.status]
+              return (
+                <div key={request.id} className="flex items-center gap-4 px-5 py-3.5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sky-500/10 text-sky-300">
+                    <Clock className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-white">
+                      充值 {format(request.amount)}
+                      {request.bonus > 0 ? ` + ${format(request.bonus)} 赠送` : ''}
+                    </p>
+                    <p className="text-xs text-slate-500">
+                      {paymentMethodLabels[request.method]} · {request.id} · {formatRelative(request.createdAt)}
+                    </p>
+                  </div>
+                  <span
+                    className={cn(
+                      'shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] font-medium',
+                      meta.className,
+                    )}
+                  >
+                    {meta.label}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
+
       {/* Top-up modal */}
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        title="Top up wallet"
-        description="Add simulated funds to your demo wallet"
+        title="钱包充值"
+        description="为您的账户充值"
       >
         <div className="space-y-5">
           <div className="flex items-start gap-2.5 rounded-2xl border border-amber-400/25 bg-amber-400/10 p-3.5">
             <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
             <p className="text-xs leading-relaxed text-amber-200">
-              Demo wallet — no real funds are added and no payment is processed.
+              充值金额将即时存入您的钱包余额。
             </p>
           </div>
 
@@ -124,12 +170,12 @@ export default function WalletPage() {
           </div>
 
           <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-            <span className="text-sm text-slate-400">Amount</span>
+            <span className="text-sm text-slate-400">金额</span>
             <span className="font-display text-xl font-bold text-white">{format(amount)}</span>
           </div>
 
           <Button fullWidth size="lg" loading={adding} onClick={handleAddFunds}>
-            Add Funds — Demo
+            确认充值
           </Button>
         </div>
       </Modal>

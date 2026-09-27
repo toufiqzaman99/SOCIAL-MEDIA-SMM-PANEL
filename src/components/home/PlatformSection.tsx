@@ -16,9 +16,9 @@ export default function PlatformSection() {
     <section className="relative py-20 sm:py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Platforms"
-          title="Grow Across Every Platform"
-          subtitle="Marketing and growth services for every major social platform — one dashboard, full order tracking, no passwords required."
+          eyebrow="覆盖平台"
+          title="全平台增长服务"
+          subtitle="覆盖各大主流社媒平台的营销增长服务——一个控制台、全程订单跟踪、无需提供密码。"
         />
 
         <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -47,13 +47,13 @@ export default function PlatformSection() {
 
                   <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4">
                     <p className="text-sm text-slate-400">
-                      From <span className="font-semibold text-white">{format(platform.startingAt)}</span>
+                      低至 <span className="font-semibold text-white">{format(platform.startingAt)}</span>
                     </p>
                     <button
                       onClick={() => navigate(`/services?platform=${platform.id}`)}
                       className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-violet-300 transition hover:bg-violet-400/10 hover:text-violet-200"
                     >
-                      View Services
+                      查看服务
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </button>
                   </div>
